@@ -1,0 +1,10 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="energyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC2626"/>
+      <stop offset="100%" style="stop-color:#B91C1C"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#energyGrad)"/>
+  <path d="M22 10L14 22H19L18 30L26 18H21L22 10Z" fill="#FCD34D" stroke="#FCD34D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

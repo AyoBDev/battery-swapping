@@ -1,26 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Colors */
+  --primary-green: #10B981;
+  --primary-blue: #3B82F6;
+  --primary-dark: #1C3D2D;
+
+  /* Header Colors - Dark Green Theme */
+  --header-bg: #1C3D2D;
+  --header-text: #FFFFFF;
+  --header-nav-active: rgba(255, 255, 255, 0.15);
+  --header-nav-hover: rgba(255, 255, 255, 0.1);
+
+  /* Brand Colors (updated dynamically via JS) */
+  --brand-primary: #1C3D2D;
+  --brand-secondary: #10B981;
+  --brand-accent: #8B5CF6;
+
+  /* Status Colors */
+  --status-online: #10B981;
+  --status-warning: #F59E0B;
+  --status-critical: #EF4444;
+  --status-offline: #6B7280;
+
+  /* Background Colors - Warm Cream */
+  --bg-primary: #F5F0E8;
+  --bg-card: #FFFFFF;
+  --bg-dark: #1C3D2D;
+
+  /* Accent */
+  --accent-purple: #8B5CF6;
+
+  /* Text Colors */
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+
+  /* Spacing & Radius */
+  --radius: 16px;
+  --radius-sm: 8px;
+  --radius-lg: 24px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Card Styles */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+}
+
+.card-compact {
+  padding: 16px;
+}
+
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Badge Styles */
+.status-online {
+  color: var(--status-online);
+}
+
+.status-warning {
+  color: var(--status-warning);
+}
+
+.status-critical {
+  color: var(--status-critical);
+}
+
+.status-offline {
+  color: var(--status-offline);
+}
+
+/* Button Base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563EB;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--primary-blue);
+  border: 1px solid var(--primary-blue);
+}
+
+.btn-secondary:hover {
+  background: #EFF6FF;
+}
+
+.btn-danger {
+  background: var(--status-critical);
+  color: white;
+}
+
+/* KPI Value */
+.kpi-value {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Trend Indicators */
+.trend-up {
+  color: var(--status-online);
+}
+
+.trend-down {
+  color: var(--status-critical);
+}
+
+/* Leaflet Map Fix */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+/* Table Styles */
+.table-row:hover {
+  background-color: #F9FAFB;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F4F6;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
 }
