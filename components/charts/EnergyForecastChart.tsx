@@ -61,7 +61,8 @@ export default function EnergyForecastChart() {
                                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                                 fontSize: '12px'
                             }}
-                            formatter={(value: number, name: string) => {
+                            formatter={(value: number | undefined, name: string | undefined) => {
+                                if (value === undefined || name === undefined) return ['', ''];
                                 const labels: Record<string, string> = {
                                     solarPrediction: '☀️ Solar Generation',
                                     demandPrediction: '📈 Predicted Demand',

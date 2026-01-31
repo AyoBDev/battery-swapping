@@ -43,8 +43,8 @@ export default function EnergyIndependenceChart() {
                                 borderRadius: '8px',
                                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                             }}
-                            formatter={(value: number, name: string) => [
-                                `${value.toFixed(1)} kWh`,
+                            formatter={(value: number | undefined, name: string | undefined) => [
+                                `${(value ?? 0).toFixed(1)} kWh`,
                                 name === 'solar' ? '☀️ Solar' : name === 'grid' ? '🔌 Grid' : '🔋 Storage'
                             ]}
                         />
