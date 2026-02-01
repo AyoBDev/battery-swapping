@@ -26,9 +26,9 @@ export default function FleetPage() {
     return (
         <MainLayout>
             {/* Page Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Fleet Management</h1>
+                    <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Fleet Management</h1>
                     <p className="text-sm text-gray-500 mt-1">Track and manage your bike fleet</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -69,11 +69,11 @@ export default function FleetPage() {
             </div>
 
             {/* Main Content */}
-            <div className="flex gap-6">
+            <div className="flex flex-col lg:flex-row gap-6">
                 {/* Table Section */}
-                <div className="flex-1 bg-white rounded-xl shadow-sm overflow-hidden">
+                <div className="flex-1 bg-white rounded-xl shadow-sm overflow-hidden order-1">
                     {/* Filters */}
-                    <div className="p-4 border-b border-gray-100 flex items-center gap-4">
+                    <div className="p-4 border-b border-gray-100 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                         <div className="flex-1">
                             <input
                                 type="text"
@@ -143,10 +143,10 @@ export default function FleetPage() {
                                                     <div className="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
                                                         <div
                                                             className={`h-full rounded-full ${bike.currentBattery.charge > 50
-                                                                    ? 'bg-green-500'
-                                                                    : bike.currentBattery.charge > 20
-                                                                        ? 'bg-yellow-500'
-                                                                        : 'bg-red-500'
+                                                                ? 'bg-green-500'
+                                                                : bike.currentBattery.charge > 20
+                                                                    ? 'bg-yellow-500'
+                                                                    : 'bg-red-500'
                                                                 }`}
                                                             style={{ width: `${bike.currentBattery.charge}%` }}
                                                         />
@@ -189,7 +189,7 @@ export default function FleetPage() {
 
                 {/* Detail Panel */}
                 {selectedBike && (
-                    <div className="w-80 bg-white rounded-xl shadow-sm p-6 h-fit">
+                    <div className="w-full lg:w-80 bg-white rounded-xl shadow-sm p-6 h-fit order-first lg:order-2">
                         <div className="flex items-center justify-between mb-4">
                             <button
                                 onClick={() => setSelectedBike(null)}

@@ -15,9 +15,9 @@ export default function StationsPage() {
             {/* Demo Tip */}
             <DemoTip message="Your station hardware customers can monitor ALL their locations from one dashboard. Remote management included." />
             {/* Page Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Station Management</h1>
+                    <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Station Management</h1>
                     <p className="text-sm text-gray-500 mt-1">Monitor and manage swap stations</p>
                 </div>
                 <div className="flex items-center gap-3">

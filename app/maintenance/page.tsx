@@ -44,9 +44,9 @@ export default function MaintenancePage() {
             <DemoTip message="14 failures prevented — this is the ROI story. AI catches problems before they cost you money." />
 
             {/* Page Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Predictive Maintenance</h1>
+                    <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Predictive Maintenance</h1>
                     <p className="text-sm text-gray-500 mt-1">AI-detected issues and scheduled maintenance</p>
                 </div>
                 <button className="btn btn-primary">+ Schedule Task</button>

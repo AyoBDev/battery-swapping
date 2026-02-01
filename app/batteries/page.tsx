@@ -21,9 +21,9 @@ export default function BatteriesPage() {
             <DemoTip message="The scatter plot shows every battery. Click the red or purple dots to show AI catching problems early. This is the key demo for battery manufacturers." />
 
             {/* Page Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Battery Health & Lifecycle</h1>
+                    <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Battery Health &amp; Lifecycle</h1>
                     <p className="text-sm text-gray-500 mt-1">AI-monitored battery fleet with predictive maintenance</p>
                 </div>
                 <button className="btn btn-secondary">Export Data</button>

@@ -23,16 +23,16 @@ export default function EnergyFlowDiagram({
     const backupHours = consumption > 0 ? Math.round((storageKwh * 1000) / consumption) : 0;
 
     return (
-        <div className="bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100 rounded-xl p-6">
+        <div className="bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100 rounded-xl p-4 sm:p-6">
             <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <span>⚡</span>
                 Energy System — AI Optimized
             </h4>
 
             {/* Flow Diagram */}
-            <div className="flex items-center justify-between gap-4 mb-6">
+            <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 md:gap-2 mb-6">
                 {/* Solar Panel */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center min-w-[70px]">
                     <div className={`w-16 h-16 rounded-xl flex items-center justify-center text-3xl ${solarOutput > 0 ? 'bg-yellow-400 shadow-lg shadow-yellow-200' : 'bg-gray-200'
                         }`}>
                         ☀️
@@ -44,7 +44,7 @@ export default function EnergyFlowDiagram({
                 </div>
 
                 {/* Arrow 1 */}
-                <div className="flex-1 flex items-center">
+                <div className="hidden md:flex flex-1 items-center">
                     <div className={`h-1 flex-1 rounded ${solarOutput > 0 ? 'bg-yellow-400' : 'bg-gray-200'}`}>
                         {solarOutput > 0 && (
                             <div className="h-full w-4 bg-yellow-500 rounded animate-pulse" />
@@ -54,10 +54,10 @@ export default function EnergyFlowDiagram({
                 </div>
 
                 {/* Storage Battery */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center min-w-[70px]">
                     <div className={`w-16 h-16 rounded-xl flex items-center justify-center text-3xl relative overflow-hidden ${storageLevel > 50 ? 'bg-green-400 shadow-lg shadow-green-200' :
-                            storageLevel > 20 ? 'bg-yellow-400 shadow-lg shadow-yellow-200' :
-                                'bg-red-400 shadow-lg shadow-red-200'
+                        storageLevel > 20 ? 'bg-yellow-400 shadow-lg shadow-yellow-200' :
+                            'bg-red-400 shadow-lg shadow-red-200'
                         }`}>
                         🔋
                         <div
@@ -73,7 +73,7 @@ export default function EnergyFlowDiagram({
                 </div>
 
                 {/* Arrow 2 */}
-                <div className="flex-1 flex items-center">
+                <div className="hidden md:flex flex-1 items-center">
                     <div className={`h-1 flex-1 rounded ${currentSource !== 'grid' ? 'bg-green-400' : 'bg-gray-200'}`}>
                         {currentSource !== 'grid' && (
                             <div className="h-full w-4 bg-green-500 rounded animate-pulse" />
@@ -83,7 +83,7 @@ export default function EnergyFlowDiagram({
                 </div>
 
                 {/* Swap Station */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center min-w-[70px]">
                     <div className="w-16 h-16 rounded-xl flex items-center justify-center text-3xl bg-blue-400 shadow-lg shadow-blue-200">
                         🔌
                     </div>

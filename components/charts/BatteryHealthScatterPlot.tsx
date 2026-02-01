@@ -98,7 +98,7 @@ export default function BatteryHealthScatterPlot({ onBatteryClick }: BatteryHeal
             </div>
 
             {/* Scatter Plot */}
-            <div className="h-80">
+            <div className="h-64 sm:h-80">
                 <ResponsiveContainer width="100%" height="100%">
                     <ScatterChart margin={{ top: 20, right: 20, left: 0, bottom: 10 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />

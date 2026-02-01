@@ -26,9 +26,9 @@ export default function EnergyPage() {
             <DemoTip message="This forecast is the key demo for solar partners — AI is planning tomorrow's charging schedule based on weather and demand predictions." />
 
             {/* Page Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Energy Management</h1>
+                    <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Energy Management</h1>
                     <p className="text-sm text-gray-500 mt-1">AI-optimized solar energy and grid management</p>
                 </div>
                 <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg">
@@ -115,7 +115,7 @@ export default function EnergyPage() {
                                                 <div className="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
                                                     <div
                                                         className={`h-full rounded-full ${station.storageLevel > 50 ? 'bg-green-500' :
-                                                                station.storageLevel > 20 ? 'bg-yellow-500' : 'bg-red-500'
+                                                            station.storageLevel > 20 ? 'bg-yellow-500' : 'bg-red-500'
                                                             }`}
                                                         style={{ width: `${station.storageLevel}%` }}
                                                     />
@@ -130,11 +130,11 @@ export default function EnergyPage() {
                                         </td>
                                         <td className="px-4 py-3">
                                             <span className={`text-xs font-medium px-2 py-1 rounded ${station.aiStatus === 'Charging' ? 'bg-green-100 text-green-700' :
-                                                    station.aiStatus === 'Conserving' ? 'bg-yellow-100 text-yellow-700' :
-                                                        station.aiStatus === 'Peak Ready' ? 'bg-blue-100 text-blue-700' :
-                                                            station.aiStatus === 'Grid Mode' ? 'bg-gray-100 text-gray-700' :
-                                                                station.aiStatus === 'Full Capacity' ? 'bg-purple-100 text-purple-700' :
-                                                                    'bg-red-100 text-red-700'
+                                                station.aiStatus === 'Conserving' ? 'bg-yellow-100 text-yellow-700' :
+                                                    station.aiStatus === 'Peak Ready' ? 'bg-blue-100 text-blue-700' :
+                                                        station.aiStatus === 'Grid Mode' ? 'bg-gray-100 text-gray-700' :
+                                                            station.aiStatus === 'Full Capacity' ? 'bg-purple-100 text-purple-700' :
+                                                                'bg-red-100 text-red-700'
                                                 }`}>
                                                 {station.aiStatus}
                                             </span>

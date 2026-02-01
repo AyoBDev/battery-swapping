@@ -23,10 +23,10 @@ export default function Dashboard() {
       <DemoTip message="Point out the AI Insights feed — this is live intelligence, not a chatbot. AI is embedded throughout the platform." />
 
       {/* Page Header - Greeting Style */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
         <div>
           <p className="text-sm text-gray-500 mb-1">Good Morning,</p>
-          <h1 className="text-2xl font-bold text-gray-900">{currentBrand.displayName}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{currentBrand.displayName}</h1>
         </div>
         <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1C3D2D] text-white text-sm font-medium rounded-full hover:bg-[#2a5440] transition-colors">
           <span>📊</span>
