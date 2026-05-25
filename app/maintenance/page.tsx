@@ -50,7 +50,6 @@ export default function MaintenancePage() {
                     <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Predictive Maintenance</h1>
                     <p className="text-sm text-gray-500 mt-1">AI-detected issues and scheduled maintenance</p>
                 </div>
-                <button className="btn btn-primary">+ Schedule Task</button>
             </div>
 
             {/* Maintenance KPIs */}

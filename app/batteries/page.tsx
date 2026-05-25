@@ -27,7 +27,7 @@ export default function BatteriesPage() {
                     <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Battery Health &amp; Lifecycle</h1>
                     <p className="text-sm text-gray-500 mt-1">AI-monitored battery fleet with predictive maintenance</p>
                 </div>
-                <button className="btn btn-secondary">Export Data</button>
+                <span className="text-sm text-gray-500">{batteryFleetSummary.total} batteries</span>
             </div>
 
             {/* Fleet Health KPIs */}

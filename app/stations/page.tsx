@@ -21,10 +21,7 @@ export default function StationsPage() {
                     <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Station Management</h1>
                     <p className="text-sm text-gray-500 mt-1">Monitor and manage swap stations</p>
                 </div>
-                <div className="flex items-center gap-3">
-                    <button className="btn btn-secondary">Map View</button>
-                    <button className="btn btn-primary">+ Add Station</button>
-                </div>
+                <span className="text-sm text-gray-500">{stations.length} stations</span>
             </div>
 
             {/* Station Grid */}
@@ -79,18 +76,14 @@ export default function StationsPage() {
                             </div>
                         )}
 
-                        {/* Action Button */}
-                        <div className="mt-4 pt-4 border-t border-gray-100">
+                        {/* Status hint */}
+                        <div className="mt-4 pt-4 border-t border-gray-100 text-center">
                             {station.status === 'low_inventory' ? (
-                                <button className="w-full btn bg-yellow-500 text-white hover:bg-yellow-600">
-                                    Restock Now
-                                </button>
+                                <span className="text-xs text-yellow-600 font-medium">Restock needed</span>
                             ) : station.status === 'offline' ? (
-                                <button className="w-full btn bg-red-500 text-white hover:bg-red-600">
-                                    Troubleshoot
-                                </button>
+                                <span className="text-xs text-red-600 font-medium">Needs attention</span>
                             ) : (
-                                <button className="w-full btn btn-secondary">View Details</button>
+                                <span className="text-xs text-gray-500">Tap for details</span>
                             )}
                         </div>
                     </div>
@@ -268,12 +261,6 @@ export default function StationsPage() {
                                 </div>
                             </div>
 
-                            {/* Actions */}
-                            <div className="flex gap-3">
-                                <button className="flex-1 btn btn-secondary">Request Restock</button>
-                                <button className="flex-1 btn btn-secondary">View History</button>
-                                <button className="flex-1 btn btn-primary">Edit Station</button>
-                            </div>
                         </div>
                     </div>
                 </div>

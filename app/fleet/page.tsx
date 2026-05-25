@@ -32,10 +32,7 @@ export default function FleetPage() {
                     <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Fleet Management</h1>
                     <p className="text-sm text-gray-500 mt-1">Track and manage your bike fleet</p>
                 </div>
-                <div className="flex items-center gap-3">
-                    <button className="btn btn-secondary">Export</button>
-                    <button className="btn btn-primary">+ Add Bike</button>
-                </div>
+                <span className="text-sm text-gray-500">{bikes.length} bikes</span>
             </div>
 
             {/* Stats Row */}
@@ -268,7 +265,6 @@ export default function FleetPage() {
                                 </div>
                             </div>
 
-                            <button className="w-full btn btn-secondary mt-4">View Full History</button>
                         </div>
                     </div>
                 )}
