@@ -6,8 +6,10 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Bike, MapPin, Battery, Zap, Wrench } from 'lucide-react';
 import { useBrand } from '@/contexts/BrandContext';
+import { useSimulation } from '@/contexts/SimulationContext';
 import SimulationControls from '@/components/ui/SimulationControls';
 import DarkModeToggle from '@/components/ui/DarkModeToggle';
+import ConnectionIndicator from '@/components/ui/ConnectionIndicator';
 
 const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -21,6 +23,7 @@ const navItems = [
 export default function Header() {
     const pathname = usePathname();
     const { currentBrand } = useBrand();
+    const { connectionStatus } = useSimulation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
@@ -74,8 +77,11 @@ export default function Header() {
                         {/* Dark Mode Toggle */}
                         <DarkModeToggle />
 
-                        {/* Simulation Controls */}
-                        <div className="hidden sm:block">
+                        {/* Connection + Simulation Controls */}
+                        <div className="hidden sm:flex items-center gap-2">
+                            {connectionStatus !== 'local' && (
+                                <ConnectionIndicator status={connectionStatus} showLabel />
+                            )}
                             <SimulationControls />
                         </div>
 
