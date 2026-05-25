@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useBrand } from '@/contexts/BrandContext';
+import SimulationControls from '@/components/ui/SimulationControls';
 
 const navItems = [
     { href: '/', label: 'Dashboard', icon: '📊' },
@@ -67,21 +68,17 @@ export default function Header() {
 
                     {/* Right side */}
                     <div className="flex items-center gap-2 sm:gap-3">
+                        {/* Simulation Controls */}
+                        <div className="hidden sm:block">
+                            <SimulationControls />
+                        </div>
+
                         {/* Fleet Selector - hidden on mobile */}
                         <select className="hidden sm:block bg-white/10 border border-white/20 rounded-full px-3 sm:px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-white/30 cursor-pointer">
                             <option className="text-gray-900">Lagos Fleet</option>
                             <option className="text-gray-900">Kigali Fleet</option>
                             <option className="text-gray-900">Nairobi Fleet</option>
                         </select>
-
-                        {/* Live Indicator */}
-                        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 rounded-full border border-emerald-400/30">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                            </span>
-                            <span className="text-xs font-medium text-emerald-300">Live</span>
-                        </div>
 
                         {/* User Avatar */}
                         <button className="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center text-white font-medium text-sm hover:bg-white/25 transition-colors border border-white/20">

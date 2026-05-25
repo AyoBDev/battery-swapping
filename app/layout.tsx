@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { BrandProvider } from "@/contexts/BrandContext";
+import { SimulationProvider } from "@/contexts/SimulationContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
         <BrandProvider>
-          {children}
+          <SimulationProvider>
+            {children}
+          </SimulationProvider>
         </BrandProvider>
       </body>
     </html>
