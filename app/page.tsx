@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import MainLayout from '@/components/layout/MainLayout';
 import KPICard from '@/components/ui/KPICard';
 import AIAlertCard from '@/components/ui/AIAlertCard';
@@ -128,9 +129,9 @@ export default function Dashboard() {
                 {aiAlerts.filter(a => a.type === 'critical' || a.type === 'warning').length} Active
               </span>
             </h3>
-            <a href="/maintenance" className="text-sm text-[#1C3D2D] hover:text-[#2a5440] font-medium">
+            <Link href="/maintenance" className="text-sm text-[#1C3D2D] hover:text-[#2a5440] font-medium">
               View All →
-            </a>
+            </Link>
           </div>
           <div className="space-y-3 max-h-[400px] overflow-y-auto">
             {/* Live simulation alerts */}
