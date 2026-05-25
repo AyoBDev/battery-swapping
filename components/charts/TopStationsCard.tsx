@@ -1,5 +1,6 @@
 'use client';
 
+import { Trophy } from 'lucide-react';
 import { topStationsToday } from '@/data/mockData';
 
 export default function TopStationsCard() {
@@ -7,7 +8,7 @@ export default function TopStationsCard() {
         <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                    <span>🏆</span>
+                    <Trophy className="w-4 h-4 text-yellow-500" />
                     Top Stations Today
                 </h3>
             </div>

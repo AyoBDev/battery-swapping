@@ -11,8 +11,8 @@ export default function EnergyIndependenceChart() {
                     <h3 className="font-semibold text-gray-900">Energy Independence This Week</h3>
                     <p className="text-sm text-gray-500 mt-1">Solar vs Grid vs Storage usage</p>
                 </div>
-                <div className="flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-full">
-                    <span className="text-lg">☀️</span>
+                <div className="flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-lg">
+                    <span className="w-2 h-2 rounded-full bg-green-500" />
                     <span className="text-sm font-bold text-green-700">{energyStats.solarSelfSufficiency}% Solar</span>
                 </div>
             </div>
@@ -45,12 +45,12 @@ export default function EnergyIndependenceChart() {
                             }}
                             formatter={(value: number | undefined, name: string | undefined) => [
                                 `${(value ?? 0).toFixed(1)} kWh`,
-                                name === 'solar' ? '☀️ Solar' : name === 'grid' ? '🔌 Grid' : '🔋 Storage'
+                                name === 'solar' ? 'Solar' : name === 'grid' ? 'Grid' : 'Storage'
                             ]}
                         />
                         <Legend
                             formatter={(value) => (
-                                value === 'solar' ? '☀️ Solar' : value === 'grid' ? '🔌 Grid' : '🔋 Storage'
+                                value === 'solar' ? 'Solar' : value === 'grid' ? 'Grid' : 'Storage'
                             )}
                         />
                         <Area

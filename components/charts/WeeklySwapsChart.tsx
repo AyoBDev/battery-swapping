@@ -10,8 +10,7 @@ export default function WeeklySwapsChart() {
     return (
         <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                    <span>📊</span>
+                <h3 className="font-semibold text-gray-900">
                     Swaps This Week
                 </h3>
             </div>

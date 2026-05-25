@@ -33,10 +33,10 @@ export default function EnergyPage() {
                     <p className="text-sm text-gray-500 mt-1">AI-optimized solar energy and grid management</p>
                 </div>
                 <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg">
-                    <span className="text-xl">☀️</span>
+                    <Sun className="w-5 h-5 text-green-600" />
                     <div>
                         <p className="text-sm font-bold text-green-700">{energyStats.solarSelfSufficiency}% Solar Self-Sufficiency</p>
-                        <p className="text-xs text-green-600">AI optimizing in real-time</p>
+                        <p className="text-xs text-green-600">Optimizing in real-time</p>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@ export default function EnergyPage() {
 
                 {/* Energy Savings Calculator */}
                 <div className="bg-white rounded-xl shadow-sm p-6">
-                    <h3 className="font-semibold text-gray-900 mb-4">💰 Energy Savings Calculator</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4">Energy Savings Calculator</h3>
                     <p className="text-sm text-gray-500 mb-4">Estimate your ROI with SwapOS solar optimization</p>
 
                     <div className="space-y-4 mb-6">

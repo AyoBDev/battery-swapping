@@ -110,21 +110,14 @@ export default function PartnerWizard() {
               </div>
 
               {/* Preview Alert */}
-              <div className="mt-4 p-3 rounded-xl border border-purple-100 bg-purple-50/50">
+              <div className="mt-4 p-3 rounded-lg border border-amber-200 bg-amber-50">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm">🤖</span>
-                  <span className="text-xs font-semibold text-purple-700">AI Insight</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                  <span className="text-xs font-semibold text-gray-700">Prediction</span>
                 </div>
                 <p className="text-xs text-gray-700">
                   Station Yaba-Central predicted to run low on charged batteries by 4 PM. Recommend pre-staging 5 batteries from Ikeja hub.
                 </p>
-              </div>
-
-              {/* Branded accent */}
-              <div className="mt-4 flex gap-2">
-                <div className="h-1 flex-1 rounded" style={{ backgroundColor: selectedPalette.primary }} />
-                <div className="h-1 flex-1 rounded" style={{ backgroundColor: selectedPalette.secondary }} />
-                <div className="h-1 flex-1 rounded" style={{ backgroundColor: selectedPalette.accent }} />
               </div>
             </div>
           </div>

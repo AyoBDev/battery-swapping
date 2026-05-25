@@ -24,18 +24,17 @@ export default function EnergyFlowDiagram({
 
     return (
         <div className="bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100 rounded-xl p-4 sm:p-6">
-            <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <span>⚡</span>
-                Energy System — AI Optimized
+            <h4 className="font-semibold text-gray-900 mb-4">
+                Energy System
             </h4>
 
             {/* Flow Diagram */}
             <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 md:gap-2 mb-6">
                 {/* Solar Panel */}
                 <div className="flex flex-col items-center min-w-[70px]">
-                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center text-3xl ${solarOutput > 0 ? 'bg-yellow-400 shadow-lg shadow-yellow-200' : 'bg-gray-200'
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center text-sm font-bold text-white ${solarOutput > 0 ? 'bg-yellow-400 shadow-lg shadow-yellow-200' : 'bg-gray-300'
                         }`}>
-                        ☀️
+                        SUN
                     </div>
                     <p className="text-xs text-gray-600 mt-2 font-medium">Solar</p>
                     <p className={`text-sm font-bold ${solarOutput > 0 ? 'text-yellow-600' : 'text-gray-400'}`}>
@@ -55,11 +54,11 @@ export default function EnergyFlowDiagram({
 
                 {/* Storage Battery */}
                 <div className="flex flex-col items-center min-w-[70px]">
-                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center text-3xl relative overflow-hidden ${storageLevel > 50 ? 'bg-green-400 shadow-lg shadow-green-200' :
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center text-sm font-bold text-white relative overflow-hidden ${storageLevel > 50 ? 'bg-green-400 shadow-lg shadow-green-200' :
                         storageLevel > 20 ? 'bg-yellow-400 shadow-lg shadow-yellow-200' :
                             'bg-red-400 shadow-lg shadow-red-200'
                         }`}>
-                        🔋
+                        BAT
                         <div
                             className="absolute bottom-0 left-0 right-0 bg-black/10"
                             style={{ height: `${100 - storageLevel}%` }}
@@ -84,8 +83,8 @@ export default function EnergyFlowDiagram({
 
                 {/* Swap Station */}
                 <div className="flex flex-col items-center min-w-[70px]">
-                    <div className="w-16 h-16 rounded-xl flex items-center justify-center text-3xl bg-blue-400 shadow-lg shadow-blue-200">
-                        🔌
+                    <div className="w-16 h-16 rounded-xl flex items-center justify-center text-sm font-bold text-white bg-blue-400 shadow-lg shadow-blue-200">
+                        STA
                     </div>
                     <p className="text-xs text-gray-600 mt-2 font-medium">Station</p>
                     <p className="text-sm font-bold text-blue-600">{consumption}W</p>
@@ -98,9 +97,9 @@ export default function EnergyFlowDiagram({
                     <p className="text-xs text-gray-500">Solar Status</p>
                     <p className="text-sm font-semibold text-gray-900">
                         {solarOutput > 0 ? (
-                            <span className="text-yellow-600">☀️ Generating {solarOutput}W</span>
+                            <span className="text-yellow-600">Generating {solarOutput}W</span>
                         ) : (
-                            <span className="text-gray-400">🌙 Night / Cloudy</span>
+                            <span className="text-gray-400">Night / Cloudy</span>
                         )}
                     </p>
                 </div>
@@ -123,17 +122,17 @@ export default function EnergyFlowDiagram({
                 <div className="bg-white/60 rounded-lg p-3">
                     <p className="text-xs text-gray-500">Currently Operating On</p>
                     <p className="text-sm font-semibold text-gray-900 capitalize">
-                        {currentSource === 'solar' && '☀️ Solar'}
-                        {currentSource === 'grid' && '🔌 Grid'}
-                        {currentSource === 'battery' && '🔋 Battery Storage'}
+                        {currentSource === 'solar' && 'Solar'}
+                        {currentSource === 'grid' && 'Grid'}
+                        {currentSource === 'battery' && 'Battery Storage'}
                     </p>
                 </div>
             </div>
 
             {/* AI Optimization Status */}
             {aiOptimizationText && (
-                <div className="bg-purple-50 border border-purple-100 rounded-lg p-3">
-                    <p className="text-xs font-medium text-purple-700 mb-1">🤖 AI Optimization Status</p>
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                    <p className="text-xs font-medium text-gray-700 mb-1">Optimization Status</p>
                     <p className="text-sm text-gray-700">{aiOptimizationText}</p>
                 </div>
             )}

@@ -38,7 +38,7 @@ export default function InventoryBar({
                 <div className="flex items-center justify-between mt-1">
                     <span className="text-xs text-gray-600">{current}/{total} batteries</span>
                     {percentage <= 30 && (
-                        <span className="text-xs text-yellow-600 font-medium">⚠️</span>
+                        <span className="text-xs text-yellow-600 font-medium">Low</span>
                     )}
                 </div>
             )}

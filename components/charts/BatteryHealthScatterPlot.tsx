@@ -65,9 +65,8 @@ export default function BatteryHealthScatterPlot({ onBatteryClick }: BatteryHeal
         <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                        <span>🤖</span>
-                        Battery Fleet Health — AI Monitored
+                    <h3 className="font-semibold text-gray-900">
+                        Battery Fleet Health
                     </h3>
                     <p className="text-sm text-gray-500 mt-1">Each dot represents one battery. Click to view details.</p>
                 </div>
@@ -176,9 +175,9 @@ export default function BatteryHealthScatterPlot({ onBatteryClick }: BatteryHeal
             </div>
 
             {/* Key Insight */}
-            <div className="mt-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 rounded-lg p-4">
+            <div className="mt-4 bg-gray-50 border border-gray-200 rounded-lg p-4">
                 <p className="text-sm text-gray-700">
-                    <span className="font-semibold text-purple-700">🤖 Fleet Health Summary:</span>{' '}
+                    <span className="font-semibold text-gray-900">Fleet Health Summary:</span>{' '}
                     {batteryFleetSummary.healthyPercent}% of batteries are degrading normally.
                     {batteryFleetSummary.replace} batteries flagged for replacement within 30 days.
                     {batteryFleetSummary.anomaly} batteries showing anomalous degradation — Station 3 charging system under investigation.

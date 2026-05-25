@@ -19,13 +19,13 @@ export default function MaintenancePage() {
         return date.toLocaleDateString('en-NG', { weekday: 'short', month: 'short', day: 'numeric' });
     };
 
-    const getTaskTypeIcon = (type: string) => {
+    const getTaskTypeColor = (type: string) => {
         switch (type) {
-            case 'battery_replacement': return '🔋';
-            case 'station_inspection': return '🔍';
-            case 'module_replacement': return '🔧';
-            case 'software_update': return '💻';
-            default: return '📋';
+            case 'battery_replacement': return 'bg-emerald-100 text-emerald-700';
+            case 'station_inspection': return 'bg-blue-100 text-blue-700';
+            case 'module_replacement': return 'bg-amber-100 text-amber-700';
+            case 'software_update': return 'bg-purple-100 text-purple-700';
+            default: return 'bg-gray-100 text-gray-700';
         }
     };
 
@@ -90,10 +90,9 @@ export default function MaintenancePage() {
                 <div className="bg-white rounded-xl shadow-sm p-6">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                            <span>🤖</span>
-                            AI-Detected Issues
+                            Detected Issues
                         </h3>
-                        <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-medium">
+                        <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded font-medium">
                             {aiAlerts.length} Active
                         </span>
                     </div>
@@ -121,14 +120,14 @@ export default function MaintenancePage() {
                     {/* Maintenance Schedule */}
                     <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                         <div className="px-6 py-4 border-b border-gray-100">
-                            <h3 className="font-semibold text-gray-900">📅 Maintenance Schedule</h3>
+                            <h3 className="font-semibold text-gray-900">Maintenance Schedule</h3>
                         </div>
                         <div className="divide-y divide-gray-50">
                             {maintenanceSchedule.slice(0, 5).map((task) => (
                                 <div key={task.id} className="px-6 py-4 hover:bg-gray-50">
                                     <div className="flex items-start gap-3">
-                                        <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-lg flex-shrink-0">
-                                            {getTaskTypeIcon(task.type)}
+                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 ${getTaskTypeColor(task.type)}`}>
+                                            {task.type.split('_')[0][0].toUpperCase()}{task.type.split('_')[1]?.[0].toUpperCase() || ''}
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center justify-between gap-2 mb-1">
@@ -141,8 +140,8 @@ export default function MaintenancePage() {
                                             </div>
                                             <p className="text-xs text-gray-600 mb-1">{task.description}</p>
                                             <div className="flex items-center gap-3 text-xs text-gray-500">
-                                                <span>📍 {task.location}</span>
-                                                <span>⏱️ {task.estimatedDuration}</span>
+                                                <span>{task.location}</span>
+                                                <span>{task.estimatedDuration}</span>
                                             </div>
                                             {task.partsNeeded && (
                                                 <p className="text-xs text-blue-600 mt-1">Parts: {task.partsNeeded}</p>
@@ -160,9 +159,8 @@ export default function MaintenancePage() {
                     </div>
 
                     {/* Failure Prevention Stats */}
-                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 rounded-xl p-6">
-                        <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                            <span>🛡️</span>
+                    <div className="bg-green-50 border border-green-100 rounded-xl p-6">
+                        <h3 className="font-semibold text-gray-900 mb-4">
                             Failure Prevention Rate
                         </h3>
                         <div className="text-center mb-4">
@@ -180,10 +178,9 @@ export default function MaintenancePage() {
                     </div>
 
                     {/* Cost Savings */}
-                    <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 rounded-xl p-6">
-                        <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                            <span>💰</span>
-                            Cost Savings from AI
+                    <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                        <h3 className="font-semibold text-gray-900 mb-4">
+                            Cost Savings
                         </h3>
                         <div className="text-center mb-4">
                             <p className="text-3xl font-bold text-purple-600">{formatNaira(maintenanceSavings.total)}</p>

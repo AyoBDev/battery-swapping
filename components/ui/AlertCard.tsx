@@ -19,19 +19,19 @@ export default function AlertCard({
 }: AlertCardProps) {
     const typeConfig = {
         critical: {
-            icon: '🔴',
+            dotColor: 'bg-red-500',
             bgColor: 'bg-red-50',
             borderColor: 'border-red-200',
             textColor: 'text-red-800',
         },
         warning: {
-            icon: '🟡',
+            dotColor: 'bg-yellow-500',
             bgColor: 'bg-yellow-50',
             borderColor: 'border-yellow-200',
             textColor: 'text-yellow-800',
         },
         info: {
-            icon: '🔵',
+            dotColor: 'bg-blue-500',
             bgColor: 'bg-blue-50',
             borderColor: 'border-blue-200',
             textColor: 'text-blue-800',
@@ -43,7 +43,7 @@ export default function AlertCard({
     return (
         <div className={`${config.bgColor} ${config.borderColor} border rounded-lg p-4 hover:shadow-sm transition-shadow`}>
             <div className="flex items-start gap-3">
-                <span className="text-lg flex-shrink-0">{config.icon}</span>
+                <span className={`w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0 ${config.dotColor}`} />
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                         <h4 className={`font-medium text-sm ${config.textColor} truncate`}>{title}</h4>

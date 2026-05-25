@@ -131,9 +131,8 @@ export default function BatteriesPage() {
 
                 {/* AI Replacement Forecast */}
                 <div className="bg-white rounded-xl shadow-sm p-6">
-                    <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                        <span>🤖</span>
-                        AI Replacement Forecast
+                    <h3 className="font-semibold text-gray-900 mb-4">
+                        Replacement Forecast
                     </h3>
                     <div className="space-y-4 mb-6">
                         <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
@@ -186,9 +185,8 @@ export default function BatteriesPage() {
             </div>
 
             {/* Lifecycle Analytics */}
-            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 rounded-xl p-6">
-                <div className="flex items-center gap-2 mb-4">
-                    <span className="text-xl">💡</span>
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                <div className="mb-4">
                     <h3 className="font-semibold text-gray-900">Battery Lifecycle Analytics</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -217,7 +215,7 @@ export default function BatteriesPage() {
                 </div>
                 <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4">
                     <p className="text-sm text-gray-700">
-                        <span className="font-medium">🤖 AI Insight:</span> &quot;{batteryLifecycleStats.aiInsight}&quot;
+                        <span className="font-medium text-gray-900">Insight:</span> &quot;{batteryLifecycleStats.aiInsight}&quot;
                     </p>
                 </div>
             </div>

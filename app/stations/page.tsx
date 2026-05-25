@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { MapPin, Clock, Phone, Sun, Plug } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import StatusBadge from '@/components/ui/StatusBadge';
 import InventoryBar from '@/components/ui/InventoryBar';
@@ -65,7 +66,7 @@ export default function StationsPage() {
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-600">Power</span>
                                     <span className="font-medium text-gray-900 flex items-center gap-1">
-                                        {station.powerSystem.type === 'solar' || station.powerSystem.type === 'hybrid' ? '☀️' : '🔌'}
+                                        {station.powerSystem.type === 'solar' || station.powerSystem.type === 'hybrid' ? <Sun className="w-3.5 h-3.5 text-yellow-500" /> : <Plug className="w-3.5 h-3.5 text-gray-500" />}
                                         {station.powerSystem.type.charAt(0).toUpperCase() + station.powerSystem.type.slice(1)}
                                         <span className="text-xs text-gray-500">({station.powerSystem.storagePercent}%)</span>
                                     </span>
@@ -116,15 +117,15 @@ export default function StationsPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                                 <div className="space-y-2 text-sm">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-gray-500">📍</span>
+                                        <MapPin className="w-4 h-4 text-gray-400" />
                                         <span className="text-gray-700">{selectedStation.address}</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-gray-500">🕐</span>
+                                        <Clock className="w-4 h-4 text-gray-400" />
                                         <span className="text-gray-700">{selectedStation.operatingHours}</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-gray-500">📞</span>
+                                        <Phone className="w-4 h-4 text-gray-400" />
                                         <span className="text-gray-700">{selectedStation.hostName} ({selectedStation.hostPhone})</span>
                                     </div>
                                 </div>
@@ -132,7 +133,7 @@ export default function StationsPage() {
                                 {/* Power System */}
                                 <div className="bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100 rounded-lg p-4">
                                     <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
-                                        {selectedStation.powerSystem.type === 'solar' || selectedStation.powerSystem.type === 'hybrid' ? '☀️' : '⚡'}
+                                        {selectedStation.powerSystem.type === 'solar' || selectedStation.powerSystem.type === 'hybrid' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Plug className="w-4 h-4 text-gray-600" />}
                                         Power System
                                     </h4>
                                     <div className="space-y-1 text-sm">

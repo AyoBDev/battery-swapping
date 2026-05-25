@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Bike as BikeIcon, CirclePause } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import StatusBadge from '@/components/ui/StatusBadge';
 import { bikes, formatTimeAgo, Bike } from '@/data/mockData';
@@ -40,8 +41,8 @@ export default function FleetPage() {
             {/* Stats Row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
-                        <span className="text-2xl">🏍️</span>
+                    <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 font-bold text-sm">
+                        {bikes.length}
                     </div>
                     <div>
                         <p className="text-2xl font-bold text-gray-900">{bikes.length}</p>
@@ -50,7 +51,7 @@ export default function FleetPage() {
                 </div>
                 <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-4">
                     <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
-                        <span className="text-2xl">🟢</span>
+                        <BikeIcon className="w-6 h-6 text-green-600" />
                     </div>
                     <div>
                         <p className="text-2xl font-bold text-gray-900">{activeBikes}</p>
@@ -59,7 +60,7 @@ export default function FleetPage() {
                 </div>
                 <div className="bg-white rounded-xl shadow-sm p-4 flex items-center gap-4">
                     <div className="w-12 h-12 bg-yellow-50 rounded-lg flex items-center justify-center">
-                        <span className="text-2xl">⏸️</span>
+                        <CirclePause className="w-6 h-6 text-yellow-600" />
                     </div>
                     <div>
                         <p className="text-2xl font-bold text-gray-900">{idleBikes + maintenanceBikes}</p>

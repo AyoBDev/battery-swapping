@@ -62,22 +62,17 @@ export default function StationMap({ onStationClick }: StationMapProps) {
             className: 'custom-marker',
             html: `
         <div style="
-          width: 32px;
-          height: 32px;
+          width: 28px;
+          height: 28px;
           background: ${color};
           border: 3px solid white;
           border-radius: 50%;
           box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        ">
-          <span style="color: white; font-size: 14px;">📍</span>
-        </div>
+        "></div>
       `,
-            iconSize: [32, 32],
-            iconAnchor: [16, 32],
-            popupAnchor: [0, -32],
+            iconSize: [28, 28],
+            iconAnchor: [14, 28],
+            popupAnchor: [0, -28],
         });
     };
 
@@ -89,26 +84,20 @@ export default function StationMap({ onStationClick }: StationMapProps) {
             className: 'rider-marker',
             html: `
         <div style="
-          width: 28px;
-          height: 28px;
+          width: 24px;
+          height: 24px;
           background: ${isSwapping ? '#8B5CF6' : '#3B82F6'};
           border: 2px solid white;
           border-radius: 50%;
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.5s ease;
-        ">
-          <span style="color: white; font-size: 12px;">${isSwapping ? '🔄' : '🏍️'}</span>
-        </div>
+        "></div>
         <div style="
           position: absolute;
-          bottom: -6px;
+          bottom: -4px;
           left: 50%;
           transform: translateX(-50%);
-          width: 20px;
-          height: 4px;
+          width: 16px;
+          height: 3px;
           background: ${batteryColor};
           border-radius: 2px;
         "></div>

@@ -10,9 +10,8 @@ export default function EnergyForecastChart() {
         <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                        <span>🤖</span>
-                        AI Energy Forecast — Next 24 Hours
+                    <h3 className="font-semibold text-gray-900">
+                        Energy Forecast — Next 24 Hours
                     </h3>
                     <p className="text-sm text-gray-500 mt-1">Solar generation, demand, and charging predictions</p>
                 </div>
@@ -64,10 +63,10 @@ export default function EnergyForecastChart() {
                             formatter={(value: number | undefined, name: string | undefined) => {
                                 if (value === undefined || name === undefined) return ['', ''];
                                 const labels: Record<string, string> = {
-                                    solarPrediction: '☀️ Solar Generation',
-                                    demandPrediction: '📈 Predicted Demand',
-                                    chargingPlan: '🔋 Charging Plan',
-                                    storageLevel: '🔋 Storage Level'
+                                    solarPrediction: 'Solar Generation',
+                                    demandPrediction: 'Predicted Demand',
+                                    chargingPlan: 'Charging Plan',
+                                    storageLevel: 'Storage Level'
                                 };
                                 const unit = name === 'storageLevel' ? '%' : 'W';
                                 return [`${Math.round(value)}${unit}`, labels[name] || name];
@@ -77,10 +76,10 @@ export default function EnergyForecastChart() {
                             wrapperStyle={{ fontSize: '11px' }}
                             formatter={(value) => {
                                 const labels: Record<string, string> = {
-                                    solarPrediction: '☀️ Solar',
-                                    demandPrediction: '📈 Demand',
-                                    chargingPlan: '🔋 Charging',
-                                    storageLevel: '🔋 Storage %'
+                                    solarPrediction: 'Solar',
+                                    demandPrediction: 'Demand',
+                                    chargingPlan: 'Charging',
+                                    storageLevel: 'Storage %'
                                 };
                                 return labels[value] || value;
                             }}
@@ -131,10 +130,10 @@ export default function EnergyForecastChart() {
                 </ResponsiveContainer>
             </div>
 
-            {/* AI Insight Box */}
-            <div className="mt-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 rounded-lg p-4">
+            {/* Insight Box */}
+            <div className="mt-4 bg-gray-50 border border-gray-200 rounded-lg p-4">
                 <p className="text-sm text-gray-700">
-                    <span className="font-semibold text-purple-700">🤖 Forecast Summary:</span>{' '}
+                    <span className="font-semibold text-gray-900">Forecast Summary:</span>{' '}
                     Tomorrow will have {energyForecastSummary.solarAvailability}% solar availability with {energyForecastSummary.cloudCover}.
                     Morning rush demand expected at {energyForecastSummary.morningRushDemand} swaps ({energyForecastSummary.rushAboveAverage}% above average — Monday effect).
                     AI has scheduled aggressive charging {energyForecastSummary.chargingWindow} to build reserves.
