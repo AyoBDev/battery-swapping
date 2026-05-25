@@ -22,6 +22,7 @@ const Popup = dynamic(
 );
 
 import { stations, formatNaira, Station } from '@/data/mockData';
+import { useSimulation } from '@/contexts/SimulationContext';
 import 'leaflet/dist/leaflet.css';
 
 interface StationMapProps {
@@ -31,6 +32,7 @@ interface StationMapProps {
 export default function StationMap({ onStationClick }: StationMapProps) {
     const [isMounted, setIsMounted] = useState(false);
     const [L, setL] = useState<typeof import('leaflet') | null>(null);
+    const { state } = useSimulation();
 
     useEffect(() => {
         setIsMounted(true);
@@ -79,6 +81,44 @@ export default function StationMap({ onStationClick }: StationMapProps) {
         });
     };
 
+    const createRiderIcon = (batteryLevel: number, status: string) => {
+        const batteryColor = batteryLevel > 50 ? '#10B981' : batteryLevel > 20 ? '#F59E0B' : '#EF4444';
+        const isSwapping = status === 'swapping';
+
+        return L.divIcon({
+            className: 'rider-marker',
+            html: `
+        <div style="
+          width: 28px;
+          height: 28px;
+          background: ${isSwapping ? '#8B5CF6' : '#3B82F6'};
+          border: 2px solid white;
+          border-radius: 50%;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.5s ease;
+        ">
+          <span style="color: white; font-size: 12px;">${isSwapping ? '🔄' : '🏍️'}</span>
+        </div>
+        <div style="
+          position: absolute;
+          bottom: -6px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 20px;
+          height: 4px;
+          background: ${batteryColor};
+          border-radius: 2px;
+        "></div>
+      `,
+            iconSize: [28, 34],
+            iconAnchor: [14, 34],
+            popupAnchor: [0, -34],
+        });
+    };
+
     // Lagos center coordinates
     const lagosCenter: [number, number] = [6.5244, 3.3792];
 
@@ -119,6 +159,33 @@ export default function StationMap({ onStationClick }: StationMapProps) {
                                     <div className="flex justify-between text-xs">
                                         <span className="text-gray-600">Revenue:</span>
                                         <span className="font-medium">{formatNaira(station.revenueToday)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </Popup>
+                    </Marker>
+                ))}
+
+                {/* Animated Rider Markers */}
+                {state.riders.map((rider) => (
+                    <Marker
+                        key={rider.id}
+                        position={[rider.lat, rider.lng]}
+                        icon={createRiderIcon(rider.batteryLevel, rider.status)}
+                    >
+                        <Popup>
+                            <div className="p-2 min-w-[160px]">
+                                <h3 className="font-semibold text-gray-900 text-sm">{rider.name}</h3>
+                                <div className="mt-2 space-y-1">
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-gray-600">Battery:</span>
+                                        <span className={`font-medium ${rider.batteryLevel > 50 ? 'text-green-600' : rider.batteryLevel > 20 ? 'text-yellow-600' : 'text-red-600'}`}>
+                                            {rider.batteryLevel}%
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-gray-600">Status:</span>
+                                        <span className="font-medium capitalize">{rider.status}</span>
                                     </div>
                                 </div>
                             </div>

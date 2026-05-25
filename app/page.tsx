@@ -10,9 +10,11 @@ import EnergyIndependenceChart from '@/components/charts/EnergyIndependenceChart
 import StationMap from '@/components/map/StationMap';
 import { fleetStats, ecosystemStats, aiAlerts, formatNaira } from '@/data/mockData';
 import { useBrand } from '@/contexts/BrandContext';
+import { useSimulation } from '@/contexts/SimulationContext';
 
 export default function Dashboard() {
   const { currentBrand } = useBrand();
+  const { state } = useSimulation();
 
   return (
     <MainLayout>
@@ -131,6 +133,26 @@ export default function Dashboard() {
             </a>
           </div>
           <div className="space-y-3 max-h-[400px] overflow-y-auto">
+            {/* Live simulation alerts */}
+            {state.alerts.map((alert) => (
+              <div
+                key={alert.id}
+                className={`p-3 rounded-lg border ${
+                  alert.type === 'critical' ? 'border-red-200 bg-red-50' : 'border-yellow-200 bg-yellow-50'
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs">{alert.type === 'critical' ? '🚨' : '⚠️'}</span>
+                  <span className={`text-xs font-semibold ${alert.type === 'critical' ? 'text-red-700' : 'text-yellow-700'}`}>
+                    {alert.title}
+                  </span>
+                  <span className="ml-auto text-[10px] text-gray-400">LIVE</span>
+                </div>
+                <p className="text-xs text-gray-700">{alert.message}</p>
+              </div>
+            ))}
+
+            {/* Static AI alerts */}
             {aiAlerts.slice(0, 5).map((alert) => (
               <AIAlertCard
                 key={alert.id}
