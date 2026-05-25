@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useBrand } from '@/contexts/BrandContext';
 import SimulationControls from '@/components/ui/SimulationControls';
+import DarkModeToggle from '@/components/ui/DarkModeToggle';
 
 const navItems = [
     { href: '/', label: 'Dashboard', icon: '📊' },
@@ -68,6 +69,9 @@ export default function Header() {
 
                     {/* Right side */}
                     <div className="flex items-center gap-2 sm:gap-3">
+                        {/* Dark Mode Toggle */}
+                        <DarkModeToggle />
+
                         {/* Simulation Controls */}
                         <div className="hidden sm:block">
                             <SimulationControls />

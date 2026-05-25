@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* Primary Colors */
   --primary-green: #10B981;
@@ -53,6 +55,50 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Dark Mode Overrides */
+.dark body {
+  background: #111827;
+  color: #F9FAFB;
+}
+
+.dark .bg-white {
+  background: #1F2937 !important;
+}
+
+.dark .bg-gray-50,
+.dark .bg-\[\#F9FAFB\] {
+  background: #111827 !important;
+}
+
+.dark .text-gray-900 {
+  color: #F9FAFB !important;
+}
+
+.dark .text-gray-700 {
+  color: #D1D5DB !important;
+}
+
+.dark .text-gray-600 {
+  color: #9CA3AF !important;
+}
+
+.dark .text-gray-500 {
+  color: #9CA3AF !important;
+}
+
+.dark .text-gray-400 {
+  color: #6B7280 !important;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200 {
+  border-color: #374151 !important;
+}
+
+.dark .shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Card Styles */

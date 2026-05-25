@@ -6,7 +6,7 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
     return (
-        <div className="min-h-screen bg-[#F9FAFB]">
+        <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#111827] transition-colors">
             <Header />
             <main className="max-w-[1800px] mx-auto px-4 sm:px-6 py-4 sm:py-6">
                 {children}
