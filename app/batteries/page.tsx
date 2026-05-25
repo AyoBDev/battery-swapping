@@ -1,5 +1,6 @@
 'use client';
 
+import { Battery, CheckCircle, AlertTriangle, Activity } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import KPICard from '@/components/ui/KPICard';
 import DemoTip from '@/components/ui/DemoTip';
@@ -32,29 +33,29 @@ export default function BatteriesPage() {
             {/* Fleet Health KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <KPICard
-                    icon="🔋"
+                    icon={<Battery className="w-5 h-5" />}
                     value={batteryFleetSummary.total}
                     label="Total Batteries"
                     status="good"
                 />
                 <KPICard
-                    icon="✅"
+                    icon={<CheckCircle className="w-5 h-5" />}
                     value={`${batteryFleetSummary.healthy}`}
                     label="Healthy Batteries"
                     subtitle={`${batteryFleetSummary.healthyPercent}% of fleet`}
                     status="good"
                 />
                 <KPICard
-                    icon="⚠️"
+                    icon={<AlertTriangle className="w-5 h-5" />}
                     value={batteryFleetSummary.watch + batteryFleetSummary.replace}
                     label="Need Attention"
                     subtitle={`${batteryFleetSummary.watch} watch, ${batteryFleetSummary.replace} replace`}
                     status={batteryFleetSummary.replace > 5 ? 'warning' : 'good'}
                 />
                 <KPICard
-                    icon="🤖"
+                    icon={<Activity className="w-5 h-5" />}
                     value={batteryFleetSummary.anomaly}
-                    label="AI Anomalies Detected"
+                    label="Anomalies Detected"
                     subtitle="Unexpected degradation"
                     status={batteryFleetSummary.anomaly > 0 ? 'warning' : 'good'}
                 />

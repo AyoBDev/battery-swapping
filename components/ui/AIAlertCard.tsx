@@ -31,21 +31,21 @@ export default function AIAlertCard({
 }: AIAlertCardProps) {
     const typeConfig = {
         critical: {
-            icon: '🔴',
+            dotColor: 'bg-red-500',
             borderColor: 'border-l-red-500',
             bgColor: 'bg-red-50',
             badgeColor: 'bg-red-100 text-red-700',
             timelineColor: 'text-red-600',
         },
         warning: {
-            icon: '🟡',
+            dotColor: 'bg-yellow-500',
             borderColor: 'border-l-yellow-500',
             bgColor: 'bg-yellow-50',
             badgeColor: 'bg-yellow-100 text-yellow-700',
             timelineColor: 'text-yellow-600',
         },
         info: {
-            icon: '🔵',
+            dotColor: 'bg-blue-500',
             borderColor: 'border-l-blue-500',
             bgColor: 'bg-blue-50',
             badgeColor: 'bg-blue-100 text-blue-700',
@@ -59,7 +59,7 @@ export default function AIAlertCard({
         return (
             <div className={`${config.bgColor} border-l-4 ${config.borderColor} rounded-r-lg p-3 hover:shadow-sm transition-shadow`}>
                 <div className="flex items-start gap-2">
-                    <span className="text-sm flex-shrink-0">{config.icon}</span>
+                    <span className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${config.dotColor}`} />
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">
                             <h4 className="font-medium text-sm text-gray-900 truncate">{title}</h4>
@@ -78,7 +78,7 @@ export default function AIAlertCard({
             {/* Header */}
             <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex items-center gap-2">
-                    <span className="text-lg">{config.icon}</span>
+                    <span className={`w-2.5 h-2.5 rounded-full ${config.dotColor}`} />
                     <div>
                         <span className={`text-xs font-semibold px-2 py-0.5 rounded ${config.badgeColor}`}>
                             {type.toUpperCase()}

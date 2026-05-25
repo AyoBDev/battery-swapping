@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { Users, MapPin, Battery, RefreshCw, Bike, DollarSign, AlertTriangle } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import KPICard from '@/components/ui/KPICard';
 import AIAlertCard from '@/components/ui/AIAlertCard';
 import BrandSelector from '@/components/ui/BrandSelector';
-import DemoTip from '@/components/ui/DemoTip';
 import WeeklySwapsChart from '@/components/charts/WeeklySwapsChart';
 import EnergyIndependenceChart from '@/components/charts/EnergyIndependenceChart';
 import StationMap from '@/components/map/StationMap';
@@ -19,30 +19,22 @@ export default function Dashboard() {
 
   return (
     <MainLayout>
-      {/* Brand Selector */}
       <BrandSelector />
 
-      {/* Demo Tip */}
-      <DemoTip message="Point out the AI Insights feed — this is live intelligence, not a chatbot. AI is embedded throughout the platform." />
-
-      {/* Page Header - Greeting Style */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <div>
           <p className="text-sm text-gray-500 mb-1">Good Morning,</p>
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{currentBrand.displayName}</h1>
         </div>
-        <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1C3D2D] text-white text-sm font-medium rounded-full hover:bg-[#2a5440] transition-colors">
-          <span>📊</span>
-          Export Data
-        </button>
       </div>
 
-      {/* Ecosystem KPIs - Platform-wide */}
+      {/* Ecosystem KPIs */}
       <div className="mb-8">
-        <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Ecosystem Overview</h3>
+        <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Ecosystem</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <KPICard
-            icon="🤝"
+            icon={<Users className="w-5 h-5" />}
             value={ecosystemStats.totalPartners}
             label="Partners on Platform"
             trend={`${ecosystemStats.monthlyGrowth.partners} this month`}
@@ -50,7 +42,7 @@ export default function Dashboard() {
             status="good"
           />
           <KPICard
-            icon="📍"
+            icon={<MapPin className="w-5 h-5" />}
             value={ecosystemStats.totalStations}
             label="Stations Network"
             trend={`${ecosystemStats.monthlyGrowth.stations} new`}
@@ -58,7 +50,7 @@ export default function Dashboard() {
             status="good"
           />
           <KPICard
-            icon="🔋"
+            icon={<Battery className="w-5 h-5" />}
             value={ecosystemStats.totalBatteries.toLocaleString()}
             label="Batteries Tracked"
             trend={`${ecosystemStats.monthlyGrowth.batteries}`}
@@ -66,20 +58,20 @@ export default function Dashboard() {
             status="good"
           />
           <KPICard
-            icon="🔄"
+            icon={<RefreshCw className="w-5 h-5" />}
             value={ecosystemStats.dailySwaps.toLocaleString()}
-            label="Daily Swaps Processed"
+            label="Daily Swaps"
             status="good"
           />
         </div>
       </div>
 
-      {/* Customer KPIs - Your Operations */}
+      {/* Operations KPIs */}
       <div className="mb-8">
-        <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Your Operations</h3>
+        <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Your Operations</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <KPICard
-            icon="🏍️"
+            icon={<Bike className="w-5 h-5" />}
             value={fleetStats.activeBikes}
             label="Active Bikes"
             subtitle={`${Math.round((fleetStats.activeBikes / fleetStats.totalBikes) * 100)}% of ${fleetStats.totalBikes} total`}
@@ -88,21 +80,21 @@ export default function Dashboard() {
             status="good"
           />
           <KPICard
-            icon="🔋"
+            icon={<Battery className="w-5 h-5" />}
             value={fleetStats.totalBatteries}
             label="Your Batteries"
             subtitle={`${fleetStats.batteryHealthPercent}% healthy`}
             status="good"
           />
           <KPICard
-            icon="📍"
+            icon={<MapPin className="w-5 h-5" />}
             value={fleetStats.totalStations}
             label="Your Stations"
             subtitle={`${fleetStats.onlineStations} online / ${fleetStats.totalStations - fleetStats.onlineStations} offline`}
             status={fleetStats.onlineStations < fleetStats.totalStations ? 'warning' : 'good'}
           />
           <KPICard
-            icon="💰"
+            icon={<DollarSign className="w-5 h-5" />}
             value={formatNaira(fleetStats.revenueToday)}
             label="Revenue Today"
             trend={`${fleetStats.swapsTrendPercent}%`}
@@ -113,28 +105,26 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        {/* Map - Takes 2 columns */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <div className="lg:col-span-2">
           <StationMap />
         </div>
 
-        {/* AI Insights Panel */}
-        <div className="bg-white rounded-2xl shadow-sm p-6">
+        {/* Alerts Panel */}
+        <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-              <span className="w-8 h-8 bg-purple-50 rounded-full flex items-center justify-center text-base">🤖</span>
-              AI Insights
-              <span className="bg-purple-100 text-purple-700 text-xs font-semibold px-2.5 py-1 rounded-full">
-                {aiAlerts.filter(a => a.type === 'critical' || a.type === 'warning').length} Active
+              <AlertTriangle className="w-4 h-4 text-amber-500" />
+              Predictions
+              <span className="bg-gray-100 text-gray-600 text-xs font-medium px-2 py-0.5 rounded">
+                {aiAlerts.filter(a => a.type === 'critical' || a.type === 'warning').length}
               </span>
             </h3>
             <Link href="/maintenance" className="text-sm text-[#1C3D2D] hover:text-[#2a5440] font-medium">
-              View All →
+              View All
             </Link>
           </div>
           <div className="space-y-3 max-h-[400px] overflow-y-auto">
-            {/* Live simulation alerts */}
             {state.alerts.map((alert) => (
               <div
                 key={alert.id}
@@ -143,7 +133,7 @@ export default function Dashboard() {
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs">{alert.type === 'critical' ? '🚨' : '⚠️'}</span>
+                  <span className={`w-1.5 h-1.5 rounded-full ${alert.type === 'critical' ? 'bg-red-500' : 'bg-yellow-500'}`} />
                   <span className={`text-xs font-semibold ${alert.type === 'critical' ? 'text-red-700' : 'text-yellow-700'}`}>
                     {alert.title}
                   </span>
@@ -153,8 +143,7 @@ export default function Dashboard() {
               </div>
             ))}
 
-            {/* Static AI alerts */}
-            {aiAlerts.slice(0, 5).map((alert) => (
+            {aiAlerts.slice(0, 4).map((alert) => (
               <AIAlertCard
                 key={alert.id}
                 type={alert.type}
@@ -174,7 +163,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Bottom Charts Row */}
+      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <WeeklySwapsChart />
         <EnergyIndependenceChart />

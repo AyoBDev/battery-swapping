@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Sun, Plug, Leaf, DollarSign } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import KPICard from '@/components/ui/KPICard';
 import DemoTip from '@/components/ui/DemoTip';
@@ -43,7 +44,7 @@ export default function EnergyPage() {
             {/* Energy KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <KPICard
-                    icon="☀️"
+                    icon={<Sun className="w-5 h-5" />}
                     value={`${energyStats.solarGenerationToday} kWh`}
                     label="Solar Generation Today"
                     trend={energyStats.solarGenerationToday >= energyStats.solarGenerationYesterday ? '↑' : '↓'}
@@ -52,21 +53,21 @@ export default function EnergyPage() {
                     status="good"
                 />
                 <KPICard
-                    icon="🔌"
+                    icon={<Plug className="w-5 h-5" />}
                     value={`${energyStats.gridUsageToday} kWh`}
                     label="Grid Usage Today"
                     subtitle={`${Math.round((energyStats.gridUsageToday / energyStats.totalConsumptionToday) * 100)}% of total`}
                     status={energyStats.gridUsageToday > 10 ? 'warning' : 'good'}
                 />
                 <KPICard
-                    icon="🌱"
+                    icon={<Leaf className="w-5 h-5" />}
                     value={`${energyStats.solarSelfSufficiency}%`}
                     label="Solar Self-Sufficiency"
                     subtitle="Target: 85%+"
                     status="good"
                 />
                 <KPICard
-                    icon="💰"
+                    icon={<DollarSign className="w-5 h-5" />}
                     value={formatNaira(energyStats.energyCostToday)}
                     label="Energy Cost Today"
                     subtitle={`Petrol equiv: ${formatNaira(energyStats.petrolEquivalentCost)}`}

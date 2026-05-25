@@ -1,5 +1,6 @@
 'use client';
 
+import { AlertTriangle, Calendar, Shield, DollarSign } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import KPICard from '@/components/ui/KPICard';
 import AIAlertCard from '@/components/ui/AIAlertCard';
@@ -55,27 +56,27 @@ export default function MaintenancePage() {
             {/* Maintenance KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <KPICard
-                    icon="⚠️"
+                    icon={<AlertTriangle className="w-5 h-5" />}
                     value={maintenanceStats.openAlerts}
                     label="Open Alerts"
                     subtitle={`${aiAlerts.filter(a => a.type === 'critical').length} critical`}
                     status={aiAlerts.filter(a => a.type === 'critical').length > 0 ? 'warning' : 'good'}
                 />
                 <KPICard
-                    icon="📅"
+                    icon={<Calendar className="w-5 h-5" />}
                     value={maintenanceStats.scheduledThisWeek}
                     label="Scheduled This Week"
                     status="good"
                 />
                 <KPICard
-                    icon="🛡️"
+                    icon={<Shield className="w-5 h-5" />}
                     value={maintenanceStats.preventedFailures}
                     label="Failures Prevented"
                     subtitle="This month"
                     status="good"
                 />
                 <KPICard
-                    icon="💰"
+                    icon={<DollarSign className="w-5 h-5" />}
                     value={formatNaira(maintenanceStats.maintenanceCostsMTD)}
                     label="Maintenance Costs MTD"
                     subtitle={`Budget: ${formatNaira(maintenanceStats.budget)}`}

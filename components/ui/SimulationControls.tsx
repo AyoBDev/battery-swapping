@@ -7,8 +7,8 @@ export default function SimulationControls() {
 
   return (
     <div className="flex items-center gap-2">
-      <div className={`w-2 h-2 rounded-full ${state.isRunning ? 'bg-emerald-500 animate-pulse' : 'bg-gray-400'}`} />
-      <span className="text-xs text-gray-500 font-medium">
+      <div className={`w-2 h-2 rounded-full ${state.isRunning ? 'bg-emerald-400' : 'bg-gray-400'}`} />
+      <span className="text-xs text-white/70 font-medium">
         {state.isRunning ? 'LIVE' : 'PAUSED'}
       </span>
       {state.isRunning ? (

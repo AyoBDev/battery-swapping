@@ -4,17 +4,18 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { LayoutDashboard, Bike, MapPin, Battery, Zap, Wrench } from 'lucide-react';
 import { useBrand } from '@/contexts/BrandContext';
 import SimulationControls from '@/components/ui/SimulationControls';
 import DarkModeToggle from '@/components/ui/DarkModeToggle';
 
 const navItems = [
-    { href: '/', label: 'Dashboard', icon: '📊' },
-    { href: '/fleet', label: 'Fleet', icon: '🏍️' },
-    { href: '/stations', label: 'Stations', icon: '📍' },
-    { href: '/batteries', label: 'Batteries', icon: '🔋' },
-    { href: '/energy', label: 'Energy', icon: '⚡', isNew: true },
-    { href: '/maintenance', label: 'Maintenance', icon: '🔧', isNew: true },
+    { href: '/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/fleet', label: 'Fleet', icon: Bike },
+    { href: '/stations', label: 'Stations', icon: MapPin },
+    { href: '/batteries', label: 'Batteries', icon: Battery },
+    { href: '/energy', label: 'Energy', icon: Zap, isNew: true },
+    { href: '/maintenance', label: 'Maintenance', icon: Wrench, isNew: true },
 ];
 
 export default function Header() {
@@ -45,16 +46,17 @@ export default function Header() {
                         <nav className="hidden lg:flex items-center gap-1">
                             {navItems.map((item) => {
                                 const isActive = pathname === item.href;
+                                const Icon = item.icon;
                                 return (
                                     <Link
                                         key={item.href}
                                         href={item.href}
-                                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${isActive
+                                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 ${isActive
                                             ? 'bg-white/15 text-white'
                                             : 'text-white/70 hover:text-white hover:bg-white/10'
                                             }`}
                                     >
-                                        <span className="text-xs">{item.icon}</span>
+                                        <Icon className="w-4 h-4" />
                                         {item.label}
                                         {item.isNew && (
                                             <span className="text-[10px] bg-emerald-400 text-[#1C3D2D] px-1.5 py-0.5 rounded font-bold">
@@ -76,13 +78,6 @@ export default function Header() {
                         <div className="hidden sm:block">
                             <SimulationControls />
                         </div>
-
-                        {/* Fleet Selector - hidden on mobile */}
-                        <select className="hidden sm:block bg-white/10 border border-white/20 rounded-full px-3 sm:px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-white/30 cursor-pointer">
-                            <option className="text-gray-900">Lagos Fleet</option>
-                            <option className="text-gray-900">Kigali Fleet</option>
-                            <option className="text-gray-900">Nairobi Fleet</option>
-                        </select>
 
                         {/* User Avatar */}
                         <button className="w-9 h-9 bg-white/15 rounded-full flex items-center justify-center text-white font-medium text-sm hover:bg-white/25 transition-colors border border-white/20">
@@ -115,6 +110,7 @@ export default function Header() {
                     <div className="max-w-[1800px] mx-auto px-4 py-4 space-y-2">
                         {navItems.map((item) => {
                             const isActive = pathname === item.href;
+                            const Icon = item.icon;
                             return (
                                 <Link
                                     key={item.href}
@@ -125,7 +121,7 @@ export default function Header() {
                                         : 'text-white/70 hover:text-white hover:bg-white/10'
                                         }`}
                                 >
-                                    <span className="text-lg">{item.icon}</span>
+                                    <Icon className="w-5 h-5" />
                                     {item.label}
                                     {item.isNew && (
                                         <span className="text-[10px] bg-emerald-400 text-[#1C3D2D] px-1.5 py-0.5 rounded font-bold ml-auto">
@@ -135,15 +131,6 @@ export default function Header() {
                                 </Link>
                             );
                         })}
-
-                        {/* Mobile Fleet Selector */}
-                        <div className="pt-2 border-t border-white/10">
-                            <select className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-white/30">
-                                <option className="text-gray-900">Lagos Fleet</option>
-                                <option className="text-gray-900">Kigali Fleet</option>
-                                <option className="text-gray-900">Nairobi Fleet</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
             )}

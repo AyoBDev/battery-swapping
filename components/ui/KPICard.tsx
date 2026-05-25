@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 interface KPICardProps {
-    icon: string;
+    icon: ReactNode;
     value: number | string;
     label: string;
     subtitle?: string;
@@ -29,30 +31,26 @@ export default function KPICard({
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm p-5 hover:shadow-md transition-all duration-200">
+        <div className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-200">
             <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
-                    {/* Value and trend row */}
                     <div className="flex items-center gap-3 mb-1">
-                        <span className="text-3xl font-bold text-gray-900 tracking-tight">
+                        <span className="text-2xl font-bold text-gray-900 tracking-tight">
                             {typeof value === 'number' ? value.toLocaleString() : value}
                         </span>
                         {trend && trendDirection && (
-                            <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${trendStyles[trendDirection]}`}>
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold ${trendStyles[trendDirection]}`}>
                                 {trendDirection === 'up' ? '↑' : '↓'} {trend}
                             </span>
                         )}
                     </div>
-                    {/* Label */}
                     <p className="text-sm text-gray-500 font-medium">{label}</p>
-                    {/* Subtitle */}
                     {subtitle && (
                         <p className="text-xs text-gray-400 mt-1">{subtitle}</p>
                     )}
                 </div>
-                {/* Icon */}
-                <div className={`w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 ${iconBgColors[status]}`}>
-                    <span className="text-xl">{icon}</span>
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${iconBgColors[status]}`}>
+                    {icon}
                 </div>
             </div>
         </div>
