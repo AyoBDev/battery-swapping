@@ -4,7 +4,17 @@ const BUCKET = process.env.WAITLIST_S3_BUCKET || 'swapos-waitlist-data';
 const JSON_KEY = 'waitlist/responses.json';
 const CSV_KEY = 'waitlist/responses.csv';
 
-const s3 = new S3Client({ region: process.env.AWS_REGION || 'us-east-1' });
+const s3 = new S3Client({
+  region: process.env.S3_REGION || process.env.AWS_REGION || 'us-east-1',
+  ...(process.env.S3_ACCESS_KEY_ID && process.env.S3_SECRET_ACCESS_KEY
+    ? {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID,
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+        },
+      }
+    : {}),
+});
 
 const CSV_HEADER = 'timestamp,q1_inventory,q2_swaps,q3_headache,tier,name,email,phone,company';
 
