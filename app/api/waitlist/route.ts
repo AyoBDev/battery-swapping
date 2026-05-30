@@ -97,7 +97,8 @@ export async function POST(request: NextRequest) {
       cta: tier.cta,
       count: cachedCount,
     });
-  } catch {
+  } catch (err) {
+    console.error('Waitlist POST error:', err);
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }
