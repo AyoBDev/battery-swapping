@@ -3,8 +3,8 @@
 import { QRCodeSVG } from 'qrcode.react';
 
 const PARTNER_URL = typeof window !== 'undefined'
-    ? `${window.location.origin}/partner`
-    : 'https://swapos.app/partner';
+    ? `${window.location.origin}/waitlist`
+    : 'https://swapos.app/waitlist';
 
 export default function PartnerQRPage() {
     return (
