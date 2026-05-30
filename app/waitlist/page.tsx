@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { ArrowRight, Check, MessageCircle } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { ArrowRight, ArrowLeft, Check, MessageCircle } from 'lucide-react';
 
 const Q1_OPTIONS = [
   'Spreadsheet',
@@ -27,6 +27,8 @@ const Q3_PROMPTS = [
   'Cash reconciliation',
 ];
 
+const TOTAL_STEPS = 5;
+
 type TierResult = {
   tier: number;
   label: string;
@@ -35,26 +37,67 @@ type TierResult = {
   count: number;
 };
 
+function vibrate() {
+  if (typeof navigator !== 'undefined' && navigator.vibrate) {
+    navigator.vibrate(10);
+  }
+}
+
+function ProgressDots({ current, total }: { current: number; total: number }) {
+  return (
+    <div className="flex items-center justify-center gap-2 mb-6">
+      {Array.from({ length: total }, (_, i) => (
+        <div
+          key={i}
+          className={`h-2 rounded-full transition-all duration-300 ${
+            i < current
+              ? 'w-2 bg-[#1C3D2D]'
+              : i === current
+              ? 'w-6 bg-[#1C3D2D]'
+              : 'w-2 bg-gray-200'
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function WaitlistPage() {
   const [step, setStep] = useState(0);
+  const [direction, setDirection] = useState<'forward' | 'back'>('forward');
+  const [animating, setAnimating] = useState(false);
   const [q1, setQ1] = useState('');
   const [q1Other, setQ1Other] = useState('');
   const [q2, setQ2] = useState('');
   const [q3, setQ3] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState('+234 ');
   const [company, setCompany] = useState('');
   const [counter, setCounter] = useState<number | null>(null);
   const [tierResult, setTierResult] = useState<TierResult | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetchCounter();
     const interval = setInterval(fetchCounter, 30_000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (animating) {
+      const timeout = setTimeout(() => setAnimating(false), 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [animating]);
+
+  function goTo(nextStep: number) {
+    setDirection(nextStep > step ? 'forward' : 'back');
+    setAnimating(true);
+    setStep(nextStep);
+  }
 
   async function fetchCounter() {
     try {
@@ -105,7 +148,7 @@ export default function WaitlistPage() {
       const data: TierResult = await res.json();
       setTierResult(data);
       setCounter(data.count);
-      setStep(5);
+      goTo(5);
     } catch {
       setError('Network error. Please check your connection and try again.');
     } finally {
@@ -113,42 +156,65 @@ export default function WaitlistPage() {
     }
   }
 
+  const transitionClass = animating
+    ? direction === 'forward'
+      ? 'animate-slide-in-right'
+      : 'animate-slide-in-left'
+    : '';
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6">
+      <style jsx>{`
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(30px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in-right { animation: slideInRight 0.3s ease-out; }
+        .animate-slide-in-left { animation: slideInLeft 0.3s ease-out; }
+      `}</style>
       <div className="w-full max-w-md">
-        {step === 0 && <Landing counter={counter} onStart={() => setStep(1)} />}
-        {step === 1 && (
-          <Q1Screen
-            value={q1}
-            otherValue={q1Other}
-            onChange={setQ1}
-            onOtherChange={setQ1Other}
-            onNext={() => setStep(2)}
-          />
-        )}
-        {step === 2 && (
-          <Q2Screen value={q2} onChange={setQ2} onNext={() => setStep(3)} />
-        )}
-        {step === 3 && (
-          <Q3Screen value={q3} onChange={setQ3} onNext={() => setStep(4)} />
-        )}
-        {step === 4 && (
-          <ContactScreen
-            name={name}
-            email={email}
-            phone={phone}
-            company={company}
-            onNameChange={setName}
-            onEmailChange={setEmail}
-            onPhoneChange={setPhone}
-            onCompanyChange={setCompany}
-            onSubmit={handleSubmit}
-            submitting={submitting}
-            error={error}
-            tierResult={tierResult}
-          />
-        )}
-        {step === 5 && tierResult && <Confirmation tierResult={tierResult} />}
+        {step > 0 && step < 5 && <ProgressDots current={step} total={TOTAL_STEPS} />}
+        <div ref={contentRef} className={transitionClass}>
+          {step === 0 && <Landing counter={counter} onStart={() => goTo(1)} />}
+          {step === 1 && (
+            <Q1Screen
+              value={q1}
+              otherValue={q1Other}
+              onChange={setQ1}
+              onOtherChange={setQ1Other}
+              onNext={() => goTo(2)}
+              onBack={() => goTo(0)}
+            />
+          )}
+          {step === 2 && (
+            <Q2Screen value={q2} onChange={setQ2} onNext={() => goTo(3)} onBack={() => goTo(1)} />
+          )}
+          {step === 3 && (
+            <Q3Screen value={q3} onChange={setQ3} onNext={() => goTo(4)} onBack={() => goTo(2)} />
+          )}
+          {step === 4 && (
+            <ContactScreen
+              name={name}
+              email={email}
+              phone={phone}
+              company={company}
+              onNameChange={setName}
+              onEmailChange={setEmail}
+              onPhoneChange={setPhone}
+              onCompanyChange={setCompany}
+              onSubmit={handleSubmit}
+              onBack={() => goTo(3)}
+              submitting={submitting}
+              error={error}
+              tierResult={tierResult}
+            />
+          )}
+          {step === 5 && tierResult && <Confirmation tierResult={tierResult} />}
+        </div>
       </div>
     </div>
   );
@@ -174,9 +240,11 @@ function Landing({
         <h1 className="text-2xl font-bold text-gray-900">
           Shape the future of battery swapping
         </h1>
-        {counter !== null && counter > 0 && (
+        {counter !== null && (
           <p className="text-sm text-gray-500">
-            {counter} operator{counter !== 1 ? 's' : ''} evaluating SwapOS
+            {counter > 0
+              ? `${counter} operator${counter !== 1 ? 's' : ''} evaluating SwapOS`
+              : 'Be the first to join the network'}
           </p>
         )}
       </div>
@@ -198,12 +266,14 @@ function Q1Screen({
   onChange,
   onOtherChange,
   onNext,
+  onBack,
 }: {
   value: string;
   otherValue: string;
   onChange: (v: string) => void;
   onOtherChange: (v: string) => void;
   onNext: () => void;
+  onBack: () => void;
 }) {
   const canProceed = value && (value !== 'Other' || otherValue.trim());
 
@@ -220,7 +290,7 @@ function Q1Screen({
         {Q1_OPTIONS.map((option) => (
           <button
             key={option}
-            onClick={() => onChange(option)}
+            onClick={() => { vibrate(); onChange(option); }}
             className={`w-full text-left py-3 px-4 rounded-xl border-2 transition-colors ${
               value === option
                 ? 'border-[#1C3D2D] bg-[#1C3D2D]/5'
@@ -242,14 +312,22 @@ function Q1Screen({
         />
       )}
 
-      <button
-        onClick={onNext}
-        disabled={!canProceed}
-        className="w-full bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold disabled:opacity-40 flex items-center justify-center gap-2"
-      >
-        Next
-        <ArrowRight size={20} />
-      </button>
+      <div className="flex gap-3">
+        <button
+          onClick={onBack}
+          className="py-4 px-4 rounded-xl border-2 border-gray-200 text-gray-600"
+        >
+          <ArrowLeft size={20} />
+        </button>
+        <button
+          onClick={onNext}
+          disabled={!canProceed}
+          className="flex-1 bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold disabled:opacity-40 flex items-center justify-center gap-2"
+        >
+          Next
+          <ArrowRight size={20} />
+        </button>
+      </div>
     </div>
   );
 }
@@ -258,10 +336,12 @@ function Q2Screen({
   value,
   onChange,
   onNext,
+  onBack,
 }: {
   value: string;
   onChange: (v: string) => void;
   onNext: () => void;
+  onBack: () => void;
 }) {
   return (
     <div className="space-y-6">
@@ -276,7 +356,7 @@ function Q2Screen({
         {Q2_OPTIONS.map((option) => (
           <button
             key={option}
-            onClick={() => onChange(option)}
+            onClick={() => { vibrate(); onChange(option); }}
             className={`w-full text-left py-3 px-4 rounded-xl border-2 transition-colors ${
               value === option
                 ? 'border-[#1C3D2D] bg-[#1C3D2D]/5'
@@ -288,14 +368,22 @@ function Q2Screen({
         ))}
       </div>
 
-      <button
-        onClick={onNext}
-        disabled={!value}
-        className="w-full bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold disabled:opacity-40 flex items-center justify-center gap-2"
-      >
-        Next
-        <ArrowRight size={20} />
-      </button>
+      <div className="flex gap-3">
+        <button
+          onClick={onBack}
+          className="py-4 px-4 rounded-xl border-2 border-gray-200 text-gray-600"
+        >
+          <ArrowLeft size={20} />
+        </button>
+        <button
+          onClick={onNext}
+          disabled={!value}
+          className="flex-1 bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold disabled:opacity-40 flex items-center justify-center gap-2"
+        >
+          Next
+          <ArrowRight size={20} />
+        </button>
+      </div>
     </div>
   );
 }
@@ -304,10 +392,12 @@ function Q3Screen({
   value,
   onChange,
   onNext,
+  onBack,
 }: {
   value: string;
   onChange: (v: string) => void;
   onNext: () => void;
+  onBack: () => void;
 }) {
   return (
     <div className="space-y-6">
@@ -322,7 +412,7 @@ function Q3Screen({
         {Q3_PROMPTS.map((prompt) => (
           <button
             key={prompt}
-            onClick={() => onChange(prompt)}
+            onClick={() => { vibrate(); onChange(prompt); }}
             className={`py-2 px-3 rounded-lg border text-sm transition-colors ${
               value === prompt
                 ? 'border-[#1C3D2D] bg-[#1C3D2D]/5'
@@ -345,13 +435,21 @@ function Q3Screen({
       />
       <p className="text-xs text-gray-400 text-right">{value.length}/140</p>
 
-      <button
-        onClick={onNext}
-        className="w-full bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2"
-      >
-        Next
-        <ArrowRight size={20} />
-      </button>
+      <div className="flex gap-3">
+        <button
+          onClick={onBack}
+          className="py-4 px-4 rounded-xl border-2 border-gray-200 text-gray-600"
+        >
+          <ArrowLeft size={20} />
+        </button>
+        <button
+          onClick={onNext}
+          className="flex-1 bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2"
+        >
+          Next
+          <ArrowRight size={20} />
+        </button>
+      </div>
     </div>
   );
 }
@@ -366,9 +464,9 @@ function ContactScreen({
   onPhoneChange,
   onCompanyChange,
   onSubmit,
+  onBack,
   submitting,
   error,
-  tierResult,
 }: {
   name: string;
   email: string;
@@ -379,11 +477,12 @@ function ContactScreen({
   onPhoneChange: (v: string) => void;
   onCompanyChange: (v: string) => void;
   onSubmit: () => void;
+  onBack: () => void;
   submitting: boolean;
   error: string;
   tierResult: TierResult | null;
 }) {
-  const canSubmit = name.trim() && email.trim() && phone.trim() && !submitting;
+  const canSubmit = name.trim() && email.trim() && phone.trim().length > 5 && !submitting;
 
   return (
     <div className="space-y-6">
@@ -413,7 +512,7 @@ function ContactScreen({
         />
         <input
           type="tel"
-          placeholder="Phone / WhatsApp number"
+          placeholder="+234 Phone / WhatsApp number"
           value={phone}
           onChange={(e) => onPhoneChange(e.target.value)}
           className="w-full py-3 px-4 rounded-xl border-2 border-gray-200 focus:border-[#1C3D2D] outline-none"
@@ -431,13 +530,21 @@ function ContactScreen({
         <p className="text-red-600 text-sm text-center">{error}</p>
       )}
 
-      <button
-        onClick={onSubmit}
-        disabled={!canSubmit}
-        className="w-full bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold disabled:opacity-40"
-      >
-        {submitting ? 'Submitting...' : 'Submit'}
-      </button>
+      <div className="flex gap-3">
+        <button
+          onClick={onBack}
+          className="py-4 px-4 rounded-xl border-2 border-gray-200 text-gray-600"
+        >
+          <ArrowLeft size={20} />
+        </button>
+        <button
+          onClick={onSubmit}
+          disabled={!canSubmit}
+          className="flex-1 bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold disabled:opacity-40"
+        >
+          {submitting ? 'Submitting...' : 'Submit'}
+        </button>
+      </div>
     </div>
   );
 }
@@ -450,7 +557,7 @@ function Confirmation({ tierResult }: { tierResult: TierResult }) {
   };
 
   const whatsappLink =
-    'https://wa.me/YOURNUMBER?text=Hi%20SwapOS%2C%20I%20signed%20up%20at%20the%20event';
+    'https://wa.me/2347055885094?text=Hi%20SwapOS%2C%20I%20signed%20up%20at%20the%20event';
 
   return (
     <div className="text-center space-y-6">
