@@ -84,6 +84,13 @@ export async function POST(request: NextRequest) {
     company || '',
   ];
 
+  console.log('S3 env check:', {
+    hasKey: !!process.env.S3_ACCESS_KEY_ID,
+    hasSecret: !!process.env.S3_SECRET_ACCESS_KEY,
+    region: process.env.S3_REGION,
+    bucket: process.env.WAITLIST_S3_BUCKET,
+  });
+
   try {
     await appendRow(row);
     recordRequest(ip);
