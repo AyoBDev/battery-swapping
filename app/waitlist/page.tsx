@@ -25,6 +25,7 @@ const Q3_PROMPTS = [
   'Rider no-shows',
   'Station downtime',
   'Cash reconciliation',
+  'Battery valuation/resale',
 ];
 
 const TOTAL_STEPS = 5;
