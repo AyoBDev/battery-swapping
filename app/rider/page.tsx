@@ -1,7 +1,10 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { MapPin, Navigation, Zap, QrCode, Activity, User, Flashlight, ChevronRight, Check } from 'lucide-react';
+
+const RiderMap = dynamic(() => import('@/components/map/RiderMap'), { ssr: false });
 
 type Screen = 'map' | 'navigate' | 'scan' | 'swap' | 'complete' | 'health';
 
@@ -56,41 +59,12 @@ function BottomNav({ active, onChange }: { active: Screen; onChange: (s: Screen)
 function StationMapScreen({ onSelectStation }: { onSelectStation: () => void }) {
     return (
         <div className="h-full flex flex-col relative">
-            <div className="flex-1 relative bg-[#0d1528]">
-                {/* Grid background */}
-                <div className="absolute inset-0 opacity-20">
-                    <div className="h-full w-full" style={{
-                        backgroundImage: 'linear-gradient(rgba(75,226,119,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(75,226,119,0.1) 1px, transparent 1px)',
-                        backgroundSize: '40px 40px'
-                    }} />
-                </div>
-
-                {/* Station markers */}
-                <div className="absolute top-[30%] left-[40%] flex flex-col items-center">
-                    <div className="w-8 h-8 bg-[#4be277] rounded-full flex items-center justify-center shadow-lg shadow-[#4be277]/30">
-                        <Zap size={14} className="text-[#0b1326]" />
-                    </div>
-                    <div className="w-2 h-2 bg-[#4be277] rounded-full mt-1 animate-ping" />
-                </div>
-                <div className="absolute top-[50%] left-[65%] flex flex-col items-center">
-                    <div className="w-6 h-6 bg-[#4be277]/60 rounded-full flex items-center justify-center">
-                        <Zap size={10} className="text-[#0b1326]" />
-                    </div>
-                </div>
-                <div className="absolute top-[20%] left-[70%] flex flex-col items-center">
-                    <div className="w-6 h-6 bg-[#4be277]/60 rounded-full flex items-center justify-center">
-                        <Zap size={10} className="text-[#0b1326]" />
-                    </div>
-                </div>
-
-                {/* User location */}
-                <div className="absolute top-[45%] left-[45%]">
-                    <div className="w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-lg" />
-                    <div className="absolute inset-0 w-4 h-4 bg-blue-500/30 rounded-full animate-ping" />
-                </div>
+            {/* Real Leaflet map with dark tiles */}
+            <div className="flex-1 relative">
+                <RiderMap />
 
                 {/* Header bar with branding */}
-                <div className="absolute top-4 left-4 right-4">
+                <div className="absolute top-4 left-4 right-4 z-[1000]">
                     <div className="bg-[#0f1a2e]/90 backdrop-blur-md border border-[#1a2744] rounded-xl px-4 py-3 flex items-center gap-3">
                         <div className="flex items-center gap-2">
                             <Zap size={14} className="text-[#4be277]" />
@@ -104,7 +78,7 @@ function StationMapScreen({ onSelectStation }: { onSelectStation: () => void }) 
                 </div>
 
                 {/* Battery warning */}
-                <div className="absolute top-20 left-4 right-4">
+                <div className="absolute top-20 left-4 right-4 z-[1000]">
                     <div className="bg-red-950/80 backdrop-blur-md border border-red-900/50 rounded-xl px-4 py-3 flex items-center gap-3">
                         <div className="w-8 h-8 bg-red-900/50 rounded-lg flex items-center justify-center">
                             <Zap size={14} className="text-red-400" />
@@ -118,7 +92,7 @@ function StationMapScreen({ onSelectStation }: { onSelectStation: () => void }) 
             </div>
 
             {/* Bottom station card */}
-            <div className="absolute bottom-16 left-4 right-4">
+            <div className="absolute bottom-16 left-4 right-4 z-[1000]">
                 <button onClick={onSelectStation} className="w-full text-left bg-[#0f1a2e]/95 backdrop-blur-md border border-[#1a2744] rounded-2xl p-4 active:border-[#4be277]/50 transition-colors">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-3">
