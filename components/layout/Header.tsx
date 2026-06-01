@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Bike, MapPin, Battery, Zap, Wrench } from 'lucide-react';
+import { LayoutDashboard, Bike, MapPin, Battery, Zap, Wrench, Server, DollarSign, Building2 } from 'lucide-react';
 import { useBrand } from '@/contexts/BrandContext';
 import { useSimulation } from '@/contexts/SimulationContext';
 import SimulationControls from '@/components/ui/SimulationControls';
@@ -16,8 +16,10 @@ const navItems = [
     { href: '/fleet', label: 'Fleet', icon: Bike },
     { href: '/stations', label: 'Stations', icon: MapPin },
     { href: '/batteries', label: 'Batteries', icon: Battery },
-    { href: '/energy', label: 'Energy', icon: Zap, isNew: true },
-    { href: '/maintenance', label: 'Maintenance', icon: Wrench, isNew: true },
+    { href: '/energy', label: 'Energy', icon: Zap },
+    { href: '/cabinets', label: 'Cabinets', icon: Server, isNew: true },
+    { href: '/revenue', label: 'Revenue', icon: DollarSign, isNew: true },
+    { href: '/operators', label: 'Operators', icon: Building2, isNew: true },
 ];
 
 export default function Header() {
