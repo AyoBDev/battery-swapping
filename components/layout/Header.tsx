@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Bike, MapPin, Battery, Zap, Wrench, Server, DollarSign, Building2 } from 'lucide-react';
+import { LayoutDashboard, Bike, MapPin, Battery, Zap, Server, DollarSign, Building2 } from 'lucide-react';
 import { useBrand } from '@/contexts/BrandContext';
 import { useSimulation } from '@/contexts/SimulationContext';
 import SimulationControls from '@/components/ui/SimulationControls';
