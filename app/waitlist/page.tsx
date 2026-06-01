@@ -24,8 +24,10 @@ const Q3_PROMPTS = [
   'Battery theft/loss',
   'Rider no-shows',
   'Station downtime',
-  'Cash reconciliation',
-  'Battery valuation/resale',
+  'Revenue reconciliation',
+  'Battery degradation in heat',
+  'Energy costs (grid/diesel)',
+  'Multi-operator billing',
 ];
 
 const TOTAL_STEPS = 5;
