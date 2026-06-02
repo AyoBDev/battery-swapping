@@ -74,7 +74,7 @@ Button: "Want to go electric? →"
 **On submit → confirmation state (same screen, form replaced):**
 - Their savings number restated
 - "We'll be in touch. In the meantime:"
-- Event pitch: "Come meet OEM manufacturers, investors, and fleet stakeholders building Africa's EV future."
+- Event pitch: "Come meet OEM manufacturers, investors, and fleet stakeholders at **One With AI** — June 11, Federal Palace Hotel, Lagos."
 - [Register for the event →] button (links to event URL)
 
 ## Calculation Logic
@@ -208,8 +208,13 @@ window.parent.postMessage({ type: 'swapos-resize', height: document.body.scrollH
 
 ## Configuration
 
-**Environment variable or constant:**
-- `EVENT_URL` — the event registration page URL (used in the final CTA button)
+**Constants (in-code):**
+- `EVENT_URL` = `https://taverncentral.com/e/arthurite-integrtaed-njyvgc/one-with-ai-powering-mobility-and-ev-ecosystems-with-aws-72nfff`
+- `EVENT_NAME` = `One With AI 2026`
+- `EVENT_DATE` = `June 11, 2026`
+- `EVENT_VENUE` = `Federal Palace Hotel, Victoria Island, Lagos`
+
+**Environment variable:**
 - `LEADS_S3_BUCKET` — S3 bucket for lead storage (reuse existing config if available)
 
 ## Not in Scope
