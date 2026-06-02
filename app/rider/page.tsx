@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { MapPin, Navigation, Zap, QrCode, Activity, User, Flashlight, ChevronRight, Check } from 'lucide-react';
+import { MapPin, Navigation, Zap, QrCode, Activity, User, Flashlight, ChevronRight, Check, ShieldCheck } from 'lucide-react';
 
 const RiderMap = dynamic(() => import('@/components/map/RiderMap'), { ssr: false });
 
@@ -312,8 +312,8 @@ function SwapProgressScreen({ onComplete }: { onComplete: () => void }) {
         '> Battery slot unlocked',
         '> Waiting for battery insertion...',
         '> Battery detected: BAT-0142',
-        '> Running health check...',
-        '> Charge level: 94% — Range: 52 km',
+        '> Gate check: cell balance ✓ resistance ✓ temp ✓',
+        '> Trust grade: A — SOH 94% — 142 cycles',
         '> Swap authorized — ₦200 charged',
     ];
 
@@ -450,6 +450,26 @@ function CompleteScreen({ onViewHealth, onDone }: { onViewHealth: () => void; on
                             <div className="h-full bg-[#4be277] rounded-full" style={{ width: '94%' }} />
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Trust verification badge */}
+            <div className="w-full bg-[#0f2e1a] border border-[#4be277]/30 rounded-2xl p-4 mb-4">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-[#4be277]/20 rounded-full flex items-center justify-center">
+                        <ShieldCheck size={20} className="text-[#4be277]" />
+                    </div>
+                    <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm font-semibold text-[#4be277]">Grade A</span>
+                            <span className="text-[10px] bg-[#4be277]/20 text-[#4be277] px-1.5 py-0.5 rounded font-medium">VERIFIED</span>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-0.5">SOH 94% · 142 cycles · No thermal events</p>
+                    </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-[#4be277]/20 flex items-center justify-between">
+                    <span className="text-[10px] text-gray-500">Gate check passed 2s ago</span>
+                    <span className="text-[10px] text-gray-500 font-mono">SwapOS Passport</span>
                 </div>
             </div>
 

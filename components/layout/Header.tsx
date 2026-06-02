@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Bike, MapPin, Battery, Zap, Server, DollarSign, Building2 } from 'lucide-react';
+import { LayoutDashboard, Bike, MapPin, Battery, Zap, Server, DollarSign, Building2, Shield } from 'lucide-react';
 import { useBrand } from '@/contexts/BrandContext';
 import { useSimulation } from '@/contexts/SimulationContext';
 import SimulationControls from '@/components/ui/SimulationControls';
@@ -20,6 +20,7 @@ const navItems = [
     { href: '/cabinets', label: 'Cabinets', icon: Server, isNew: true },
     { href: '/revenue', label: 'Revenue', icon: DollarSign, isNew: true },
     { href: '/operators', label: 'Operators', icon: Building2, isNew: true },
+    { href: '/battery-passport', label: 'Trust', icon: Shield, isNew: true },
 ];
 
 export default function Header() {
