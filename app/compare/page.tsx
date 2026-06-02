@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ArrowRight, X, Check, AlertTriangle, Clock, DollarSign, Battery, MapPin, Calculator, BarChart3 } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import { formatNaira } from '@/data/mockData';
+import { VEHICLE_PRESETS, EV_SWAP_COST, EV_RANGE_PER_SWAP, EV_MAINTENANCE_MONTHLY, DEFAULT_PETROL_PRICE, type VehicleType } from '@/lib/calculator-logic';
 
 // --- Overview Tab Data ---
 
@@ -71,18 +72,6 @@ const metrics = [
     { label: 'Station Uptime', before: '72%', after: '97%', improvement: '35%' },
 ];
 
-// --- Calculator Constants ---
-
-const VEHICLE_PRESETS = {
-    okada: { label: 'Okada (Motorcycle)', kmPerLiter: 45, dailyKm: 80, maintenanceMonthly: 15000 },
-    keke: { label: 'Keke (Tricycle)', kmPerLiter: 25, dailyKm: 60, maintenanceMonthly: 25000 },
-    lastMile: { label: 'Last-Mile Van', kmPerLiter: 10, dailyKm: 100, maintenanceMonthly: 45000 },
-};
-
-const EV_SWAP_COST = 200; // ₦ per swap
-const EV_RANGE_PER_SWAP = 55; // km per full battery
-const EV_MAINTENANCE_MONTHLY = 3000; // ₦ (minimal — brake pads, tires only)
-const DEFAULT_PETROL_PRICE = 700; // ₦ per liter
 
 export default function ComparePage() {
     const [tab, setTab] = useState<'overview' | 'calculator'>('overview');
@@ -232,13 +221,13 @@ function OverviewTab() {
 // --- Calculator Tab ---
 
 function CalculatorTab() {
-    const [vehicleType, setVehicleType] = useState<keyof typeof VEHICLE_PRESETS>('okada');
+    const [vehicleType, setVehicleType] = useState<VehicleType>('okada');
     const [fleetSize, setFleetSize] = useState(10);
-    const [dailyKm, setDailyKm] = useState(VEHICLE_PRESETS.okada.dailyKm);
-    const [petrolPrice, setPetrolPrice] = useState(DEFAULT_PETROL_PRICE);
-    const [kmPerLiter, setKmPerLiter] = useState(VEHICLE_PRESETS.okada.kmPerLiter);
+    const [dailyKm, setDailyKm] = useState<number>(VEHICLE_PRESETS.okada.dailyKm);
+    const [petrolPrice, setPetrolPrice] = useState<number>(DEFAULT_PETROL_PRICE);
+    const [kmPerLiter, setKmPerLiter] = useState<number>(VEHICLE_PRESETS.okada.kmPerLiter);
 
-    const handlePresetChange = (type: keyof typeof VEHICLE_PRESETS) => {
+    const handlePresetChange = (type: VehicleType) => {
         setVehicleType(type);
         setDailyKm(VEHICLE_PRESETS[type].dailyKm);
         setKmPerLiter(VEHICLE_PRESETS[type].kmPerLiter);
@@ -286,7 +275,7 @@ function CalculatorTab() {
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Vehicle Type</label>
                         <div className="space-y-2">
-                            {(Object.entries(VEHICLE_PRESETS) as [keyof typeof VEHICLE_PRESETS, typeof VEHICLE_PRESETS[keyof typeof VEHICLE_PRESETS]][]).map(([key, preset]) => (
+                            {(Object.entries(VEHICLE_PRESETS) as [VehicleType, typeof VEHICLE_PRESETS[VehicleType]][]).map(([key, preset]) => (
                                 <button
                                     key={key}
                                     onClick={() => handlePresetChange(key)}
@@ -351,7 +340,7 @@ function CalculatorTab() {
                             onChange={(e) => setPetrolPrice(Math.max(100, parseInt(e.target.value) || 100))}
                             className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-900"
                         />
-                        <p className="text-xs text-gray-500 mt-1">Current Lagos average: ~₦700/L</p>
+                        <p className="text-xs text-gray-500 mt-1">Nigeria avg, May 2026 — NBS</p>
                     </div>
 
                     {/* Fuel Efficiency */}
