@@ -459,48 +459,53 @@ function StepResults({
     ? results.monthlySavingsFleet
     : results.monthlySavingsPerVehicle;
 
+  const yearlySavings = audience === 'fleet'
+    ? results.yearlySavingsFleet
+    : results.monthlySavingsPerVehicle * 12;
+
   return (
-    <div className="space-y-6">
-      <div className="text-center space-y-2">
-        <p className="text-sm text-gray-500">Your estimated monthly savings</p>
-        <h2 className="text-3xl font-bold text-[#1C3D2D]">{formatNaira(savings)}/mo</h2>
-        {audience === 'fleet' && (
-          <p className="text-sm text-gray-500">
-            {formatNaira(results.yearlySavingsFleet)}/year for your fleet
-          </p>
-        )}
+    <div className="space-y-5">
+      <div className="text-center space-y-1">
+        <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">You&apos;re leaving on the table</p>
+        <h2 className="text-4xl font-extrabold text-[#1C3D2D]">{formatNaira(savings)}</h2>
+        <p className="text-base font-medium text-gray-700">every single month</p>
+      </div>
+
+      <div className="rounded-xl bg-[#1C3D2D] p-4 text-center text-white">
+        <p className="text-sm opacity-80">That&apos;s {formatNaira(yearlySavings)} per year{audience === 'fleet' ? ' across your fleet' : ''}</p>
+        <p className="text-xs opacity-60 mt-1">{results.savingsPercent}% less than what you spend today on fuel + maintenance</p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div className="rounded-xl border-2 border-red-200 bg-red-50 p-4 text-center">
-          <p className="text-xs text-red-600 font-medium mb-1">Petrol (ICE)</p>
-          <p className="text-lg font-bold text-red-700">{formatNaira(results.monthlyTotalICE)}</p>
-          <p className="text-xs text-red-500">/month per vehicle</p>
+          <p className="text-[10px] uppercase tracking-wide text-red-500 font-semibold mb-1">What you pay now</p>
+          <p className="text-xl font-bold text-red-700">{formatNaira(results.monthlyTotalICE)}</p>
+          <p className="text-xs text-red-400 mt-1">Fuel + repairs/mo</p>
         </div>
         <div className="rounded-xl border-2 border-green-200 bg-green-50 p-4 text-center">
-          <p className="text-xs text-green-600 font-medium mb-1">EV Swap</p>
-          <p className="text-lg font-bold text-green-700">{formatNaira(results.monthlyTotalEV)}</p>
-          <p className="text-xs text-green-500">/month per vehicle</p>
+          <p className="text-[10px] uppercase tracking-wide text-green-500 font-semibold mb-1">With battery swap</p>
+          <p className="text-xl font-bold text-green-700">{formatNaira(results.monthlyTotalEV)}</p>
+          <p className="text-xs text-green-400 mt-1">Swap + maintenance/mo</p>
         </div>
       </div>
 
-      <div className="space-y-3">
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
-          <div className="w-8 h-8 rounded-full bg-[#1C3D2D]/10 flex items-center justify-center flex-shrink-0">
-            <ArrowRight size={14} className="text-[#1C3D2D]" />
+      <div className="space-y-2">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-50 border border-amber-100">
+          <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+            <ArrowRight size={14} className="text-amber-700" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-900">+{results.uptimeGainHoursMonthly}h uptime/month</p>
-            <p className="text-xs text-gray-500">Less time fueling, more time earning</p>
+            <p className="text-sm font-semibold text-gray-900">+{results.uptimeGainHoursMonthly} extra hours earning/month</p>
+            <p className="text-xs text-gray-500">3-min swap vs 25-min fuel stop</p>
           </div>
         </div>
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
           <div className="w-8 h-8 rounded-full bg-[#1C3D2D]/10 flex items-center justify-center flex-shrink-0">
             <Check size={14} className="text-[#1C3D2D]" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-900">Fixed swap cost: {'₦'}{EV_SWAP_COST}/swap</p>
-            <p className="text-xs text-gray-500">No more fuel price surprises</p>
+            <p className="text-sm font-semibold text-gray-900">Fixed {'₦'}{EV_SWAP_COST} per swap. Always.</p>
+            <p className="text-xs text-gray-500">Petrol went up 3x in 2 years. Swap price stays locked.</p>
           </div>
         </div>
       </div>
@@ -516,7 +521,7 @@ function StepResults({
           onClick={onNext}
           className="flex-1 bg-[#1C3D2D] text-white py-4 px-6 rounded-xl font-semibold flex items-center justify-center gap-2"
         >
-          Get my full report
+          Want to go electric?
           <ArrowRight size={20} />
         </button>
       </div>
@@ -617,25 +622,25 @@ function StepConfirmation({ monthlySavings }: { monthlySavings: number }) {
       </div>
 
       <div className="space-y-2">
-        <h2 className="text-2xl font-bold text-gray-900">
-          You&apos;re saving {formatNaira(monthlySavings)}/month
+        <p className="text-sm text-gray-500">Your {formatNaira(monthlySavings)}/month savings starts here</p>
+        <h2 className="text-xl font-bold text-gray-900">
+          We&apos;ll reach out within 24 hours
         </h2>
-        <p className="text-gray-500">We&apos;ll be in touch.</p>
       </div>
 
       <div className="rounded-xl border-2 border-[#1C3D2D]/20 bg-[#1C3D2D]/5 p-5 text-left space-y-3">
-        <p className="text-sm font-bold text-gray-900">{EVENT_NAME}</p>
-        <p className="text-sm text-gray-600">
-          {EVENT_DATE} &middot; {EVENT_VENUE}
+        <p className="text-xs uppercase tracking-wide text-[#1C3D2D] font-semibold">In the meantime</p>
+        <p className="text-base font-bold text-gray-900">
+          Meet OEM manufacturers, investors & fleet stakeholders at {EVENT_NAME}
         </p>
         <p className="text-sm text-gray-600">
-          See live demos of SwapOS battery-swap infrastructure and meet the team.
+          {EVENT_DATE} &middot; {EVENT_VENUE}
         </p>
         <a
           href={EVENT_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full bg-[#1C3D2D] text-white py-3 px-6 rounded-xl font-semibold text-center text-sm"
+          className="block w-full bg-[#1C3D2D] text-white py-3 px-6 rounded-xl font-semibold text-center text-sm mt-2"
         >
           Register for the event
         </a>
