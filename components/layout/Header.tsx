@@ -17,10 +17,10 @@ const navItems = [
     { href: '/stations', label: 'Stations', icon: MapPin },
     { href: '/batteries', label: 'Batteries', icon: Battery },
     { href: '/energy', label: 'Energy', icon: Zap },
-    { href: '/cabinets', label: 'Cabinets', icon: Server, isNew: true },
-    { href: '/revenue', label: 'Revenue', icon: DollarSign, isNew: true },
-    { href: '/operators', label: 'Operators', icon: Building2, isNew: true },
-    { href: '/battery-passport', label: 'Trust', icon: Shield, isNew: true },
+    { href: '/cabinets', label: 'Cabinets', icon: Server },
+    { href: '/revenue', label: 'Revenue', icon: DollarSign },
+    { href: '/operators', label: 'Operators', icon: Building2 },
+    { href: '/battery-passport', label: 'Trust', icon: Shield },
 ];
 
 export default function Header() {
@@ -64,11 +64,6 @@ export default function Header() {
                                     >
                                         <Icon className="w-4 h-4" />
                                         {item.label}
-                                        {item.isNew && (
-                                            <span className="text-[10px] bg-emerald-400 text-[#1C3D2D] px-1.5 py-0.5 rounded font-bold">
-                                                NEW
-                                            </span>
-                                        )}
                                     </Link>
                                 );
                             })}
@@ -132,11 +127,6 @@ export default function Header() {
                                 >
                                     <Icon className="w-5 h-5" />
                                     {item.label}
-                                    {item.isNew && (
-                                        <span className="text-[10px] bg-emerald-400 text-[#1C3D2D] px-1.5 py-0.5 rounded font-bold ml-auto">
-                                            NEW
-                                        </span>
-                                    )}
                                 </Link>
                             );
                         })}
