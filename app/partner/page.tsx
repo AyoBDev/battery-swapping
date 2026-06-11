@@ -14,12 +14,21 @@ export default function PartnerSignup() {
     challenge: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
-      router.push('/partner/wizard');
-    }, 600);
+
+    try {
+      await fetch('/api/partner/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+    } catch {
+      // Continue to wizard even if S3 write fails
+    }
+
+    router.push('/partner/wizard');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

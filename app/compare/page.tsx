@@ -74,7 +74,7 @@ const metrics = [
 
 
 export default function ComparePage() {
-    const [tab, setTab] = useState<'overview' | 'calculator'>('overview');
+    const [tab, setTab] = useState<'overview' | 'calculator'>('calculator');
 
     return (
         <MainLayout>
